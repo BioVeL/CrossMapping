@@ -1,0 +1,18 @@
+/*
+ * #%L
+ * XMap Web Service Application
+ * %%
+ * Copyright (C) 2012 - 2013 Cardiff University
+ * %%
+ * Use of this software is governed by the attached licence file. If no licence 
+ * file is present the software must not be used.
+ * 
+ * The use of this software, including reverse engineering, for any other purpose 
+ * is prohibited without the express written permission of the software owner, 
+ * Cardiff University.
+ * #L%
+ */
+ /**
+	Package with the different aspects used in this web project 
+ */
+package org.openbio.xmap.application.crossmapping.aspects;

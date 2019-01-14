@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!--
+  #%L
+  XMap GUI CrossMapping Portlet
+  %%
+  Copyright (C) 2012 - 2013 Cardiff University
+  %%
+  Use of this software is governed by the attached licence file. If no licence 
+  file is present the software must not be used.
+  
+  The use of this software, including reverse engineering, for any other purpose 
+  is prohibited without the express written permission of the software owners, 
+  Cardiff University and Italy National Research Council.
+  #L%
+  -->
+
+
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd">
+	<portlet>
+		<portlet-name>CrossMappingPortlet</portlet-name>
+		<display-name>CrossMapping portlet</display-name>
+	     <portlet-class>org.gcube.portlets.user.crossmapping.server.portlet.CrossMappingPortlet</portlet-class>
+		<expiration-cache>0</expiration-cache>
+		<supports>
+			<mime-type>text/html</mime-type>
+		</supports>
+		<portlet-info>
+			<title>Cross Mapping portlet</title>
+			<short-title>Cross Mapping portlet</short-title>
+			<keywords>Cross Mapping portlet</keywords>
+		</portlet-info>
+		<security-role-ref>
+			<role-name>administrator</role-name>
+		</security-role-ref>
+	</portlet>
+</portlet-app>

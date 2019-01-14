@@ -1,0 +1,15 @@
+insert ignore into TaxonomicRankHierarchy (id,rank,parentId,isHigherRank) values(1,'kingdom',null,1);
+insert ignore into TaxonomicRankHierarchy (id,rank,parentId,isHigherRank) values(2,'phylum',1,1);
+insert ignore into TaxonomicRankHierarchy (id,rank,parentId,isHigherRank) values(3,'subphylum',2,1);  
+insert ignore into TaxonomicRankHierarchy (id,rank,parentId,isHigherRank) values(4,'class',3,1);  
+insert ignore into TaxonomicRankHierarchy (id,rank,parentId,isHigherRank) values(5,'subclass',4,1);  
+insert ignore into TaxonomicRankHierarchy (id,rank,parentId,isHigherRank) values(6,'order',5,1);  
+insert ignore into TaxonomicRankHierarchy (id,rank,parentId,isHigherRank) values(7,'suborder',6,1);  
+insert ignore into TaxonomicRankHierarchy (id,rank,parentId,isHigherRank) values(8,'superfamily',7,1);  
+insert ignore into TaxonomicRankHierarchy (id,rank,parentId,isHigherRank) values(9,'family',8,1);  
+insert ignore into TaxonomicRankHierarchy (id,rank,parentId,isHigherRank) values(10,'subfamily',9,1);  
+insert ignore into TaxonomicRankHierarchy (id,rank,parentId,isHigherRank) values(11,'tribe',10,1);  
+insert ignore into TaxonomicRankHierarchy (id,rank,parentId,isHigherRank) values(12,'genus',11,1);
+insert ignore into TaxonomicRankHierarchy (id,rank,parentId,isHigherRank) values(13,'subgenus',12,1);  
+insert ignore into TaxonomicRankHierarchy (id,rank,parentId,isHigherRank) values(14,'species',13,0);  
+insert ignore into TaxonomicRankHierarchy (id,rank,parentId,isHigherRank) values(15,'subspecies',14,0); 

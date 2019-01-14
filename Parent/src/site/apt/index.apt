@@ -1,0 +1,48 @@
+~~~
+~~ #%L
+~~ OpenBio CrossMapping
+~~ %%
+~~ Copyright (C) 2012 Cardiff University
+~~ %%
+~~ Use of this software is governed by the attached licence file. If no licence 
+~~ file is present the software must not be used.
+~~ 
+~~ The use of this software, including reverse engineering, for any other purpose 
+~~ is prohibited without the express written permission of the software owner, 
+~~ Cardiff University.
+~~ #L%
+~~~
+ ------
+ Introduction
+ ------
+ Francisco Quevedo
+ ------
+ 2012-03-07
+ ------
+
+OpenBio XMap
+
+ This is the OpenBio crossmap documentation site automatically generated using maven. This site also includes the project's reports
+ that were configured in the POM.
+
+
+* Overview
+
+  A general overview of the xmap can be found on the {{{./about.html}about page}}. 
+
+  In case you have questions regarding to the system, please have a look at the {{{./faq.html}FAQ}}
+  
+  If you are a developer who wants to use the services provided by the e2, please have a look at the Java {{{./apidocs/index.html}API}}
+
+  If you feel like the software is missing a feature or has a defect, you can fill a feature request or bug report in our
+  {{{./issue-tracking.html}issue tracker}}. When creating a new issue, please provide a comprehensive description of your
+  concern. Specially for fixing bugs it is crucial that the developers can reproduce your problem. 
+  Contributors can check out the project from our {{{./source-repository.html}source repository}}.
+
+* Examples
+
+   The following examples show how to use the XMap in more advanced usecases:
+
+   * {{{./examples/testXMap.html}How to test the XMap}}
+
+

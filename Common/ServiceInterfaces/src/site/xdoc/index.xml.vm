@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <properties>
+    <title>About ${project.build.finalName}</title>
+    <author email="F.Quevedo.Fernandez@cs.cardiff.ac.uk">Francisco Quevedo</author>   
+  </properties>
+  <body>
+		
+	<section name="${project.build.finalName}">	
+
+		<subsection name="Description">  
+			<p>
+				The services interfaces project is a key project in the XMap application due to it is the project 
+				in which we define the operations and data structures that the XMap provides. 				
+			</p>	
+			<p>
+				Basically it contains the WSDL and XSD files.
+			</p>
+		</subsection>	
+							
+	</section>
+
+  </body>
+</document>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>org.openbio.xmap</groupId>
+		<artifactId>OpenBio-Xmap-Parent</artifactId>
+		<version>1.1.1-SNAPSHOT</version>
+		<!--<relativePath>../../Parent/pom.xml</relativePath>-->
+	</parent>
+		
+	<groupId>org.openbio.xmap</groupId>
+	<artifactId>ServiceInterfaces</artifactId>
+	<packaging>jar</packaging>
+	<version>1.1.1-SNAPSHOT</version>
+	<name>XMap Service Interfaces</name>
+	   
+	<properties>		
+		<urlSubversionRepository>${urlRootSubversionRepository}/Common/ServiceInterfaces</urlSubversionRepository>
+	</properties>
+		   
+   	<scm>
+		<connection>scm:svn:https://svn.cs.cf.ac.uk/OpenBio/CrossMapping/Projects/Common/ServiceInterfaces/trunk</connection>
+		<developerConnection>scm:svn:https://svn.cs.cf.ac.uk/OpenBio/CrossMapping/Projects/Common/ServiceInterfaces/trunk</developerConnection>
+		<url>https://svn.cs.cf.ac.uk/OpenBio/CrossMapping/Projects</url>
+	</scm>		   
+	   
+	<dependencies>				
+        <dependency>
+            <groupId>org.jvnet.jaxb2_commons</groupId>
+            <artifactId>jaxb2-basics-runtime</artifactId>
+            <version>0.6.3</version>
+        </dependency>					
+	</dependencies>
+	
+	<build>
+		<plugins>		
+			<!--Plugin to generate JAXB classes from WSDL, injecting setter to list element-->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>jaxws-maven-plugin</artifactId>
+				<version>1.12</version>
+				<configuration>
+					<wsdlDirectory>${basedir}/src/main/resources/wsdl</wsdlDirectory>
+					<bindingFiles>
+						<bindingFile>${basedir}/src/main/resources/jaxws/customizeBindings.xml</bindingFile>
+					</bindingFiles>						
+					<sourceDestDir>${project.build.directory}/generated-sources/jaxb-source</sourceDestDir>
+					<verbose>false</verbose>
+					<xnocompile>true</xnocompile>
+				</configuration>						
+				<dependencies>
+					<dependency>
+						<groupId>com.sun.xml.ws</groupId>
+						<artifactId>jaxws-rt</artifactId>
+						<version>2.2.5</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<id>XMap Service WSDL</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>wsimport</goal>
+						</goals>
+						<configuration>									
+							<wsdlFiles>
+								<wsdlFile>xmapservice.wsdl</wsdlFile>							
+							</wsdlFiles>							
+							<!-- Without this, multiple WSDLs won't be processed :( -->
+							<staleFile>${project.build.directory}/jaxws/stale/wsdl.xmapservice.stale</staleFile>					
+						</configuration>						
+					</execution>						
+				</executions>
+			</plugin>
+
+            <plugin>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
+                <version>0.8.0</version>
+                <configuration>
+                    <extension>true</extension>
+                    <args>
+                        <arg>-XtoString</arg>
+						<arg>-Xequals</arg>
+						<arg>-XhashCode</arg>						
+                        <arg>-Xvalue-constructor</arg>
+                    </args>
+                    <bindingDirectory>${basedir}/src/main/resources/jaxws</bindingDirectory>
+                    <bindingIncludes>
+                        <include>customizeBindings.xml</include>
+                    </bindingIncludes>
+                    <schemaDirectory>src/main/resources/wsdl/xsd</schemaDirectory>
+                    <forceRegenerate>true</forceRegenerate>
+                    <generateDirectory>${project.build.directory}/generated-sources/jaxb-source</generateDirectory>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.jvnet.jaxb2_commons</groupId>
+                            <artifactId>jaxb2-basics</artifactId>
+                            <version>0.6.3</version>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.jvnet.jaxb2_commons</groupId>
+                            <artifactId>jaxb2-value-constructor</artifactId>
+                            <version>3.0</version>
+                        </plugin>
+                    </plugins>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>1.7</version>
+				<executions>		
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>target/generated-sources/jaxb-source</source>
+							</sources>
+						</configuration>
+					</execution>												
+				</executions>
+			</plugin>				
+		</plugins>
+	</build>	
+
+</project>

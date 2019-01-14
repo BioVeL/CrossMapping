@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>org.openbio.xmap</groupId>
+		<artifactId>OpenBio-Xmap-Parent</artifactId>
+		<version>1.1.1-SNAPSHOT</version>
+		<!--<relativePath>../../Parent/pom.xml</relativePath>-->
+	</parent>
+	
+	<groupId>org.openbio.xmap</groupId>
+	<artifactId>XMap</artifactId>
+	<packaging>jar</packaging>
+	<version>1.1.1-SNAPSHOT</version>
+	<name>XMap Business Logic</name>
+	
+	<properties>		
+		<urlSubversionRepository>${urlRootSubversionRepository}/Core/XMap</urlSubversionRepository>
+	</properties>	
+
+	<scm>
+		<connection>scm:svn:https://svn.cs.cf.ac.uk/OpenBio/CrossMapping/Projects/Core/XMap/trunk</connection>
+		<developerConnection>scm:svn:https://svn.cs.cf.ac.uk/OpenBio/CrossMapping/Projects/Core/XMap/trunk</developerConnection>
+		<url>https://svn.cs.cf.ac.uk/OpenBio/CrossMapping/Projects</url>
+	</scm>	
+	   
+	<dependencies>		
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>ServiceInterfaces</artifactId>
+            <version>1.1.1-SNAPSHOT</version>
+        </dependency>
+		
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>ChecklistImporter</artifactId>
+            <version>1.1.1-SNAPSHOT</version>
+        </dependency>			
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>CrossMapDAO</artifactId>
+            <version>1.1.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>AdminDAO</artifactId>
+            <version>1.1.1-SNAPSHOT</version>
+        </dependency>	
+        
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>TestUtils</artifactId>
+            <version>1.1.1-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency> 
+        
+		<dependency>
+			<groupId>net.sf.opencsv</groupId>
+			<artifactId>opencsv</artifactId>
+			<version>2.3</version>
+		</dependency>                     
+						
+	</dependencies>
+
+</project>

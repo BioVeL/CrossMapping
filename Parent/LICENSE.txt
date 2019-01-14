@@ -1,0 +1,35 @@
+OpenBio Crossmapping Software Licence
+-----------------------------------------
+
+Copyright (c) 2013, Cardiff University.
+All rights reserved.
+
+Redistribution and use in source and binary forms by Species 2000 and its contractors / agents / partners acting on behalf of Species 2000 is permitted, 
+with or without modification, specifically and only for the purposes of assembling, delivering and processing Species 2000 Catalogue of Life information content, 
+provided that the conditions listed below are met. Redistribution and use for any other purpose is not permitted without the express permission of the copyright 
+holder.
+
+* Redistributions of source code must retain the above copyright notice and permissions, this list of conditions and the disclaimer below.
+
+* Redistributions in binary form must reproduce the above copyright notice and permissions, this list of conditions and the following disclaimer in the 
+  documentation and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY 
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS 
+OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING 
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+
+
+For further information please contact:
+Cardiff School of Computer Science and Informatics, 
+Cardiff University, 
+Queens Buildings, 
+5 The Parade, 
+Cardiff CF24 3AA, 
+United Kingdom 
+
+telephone: +44 28 2087 4812 
+email: office@cs.cardiff.ac.uk 
+
+

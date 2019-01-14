@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  #%L
+  XMap GUI CrossMapping Portlet
+  %%
+  Copyright (C) 2012 - 2013 Cardiff University
+  %%
+  Use of this software is governed by the attached licence file. If no licence 
+  file is present the software must not be used.
+  
+  The use of this software, including reverse engineering, for any other purpose 
+  is prohibited without the express written permission of the software owners, 
+  Cardiff University and Italy National Research Council.
+  #L%
+  -->
+
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.5" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee                http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+  
+	<!-- Servlets -->
+	<servlet>
+		<servlet-name>xMap</servlet-name>
+		<servlet-class>org.gcube.portlets.user.crossmapping.server.XMapGUIServiceImpl</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>xMap</servlet-name>
+		<url-pattern>/crossmappingportlet/xMap</url-pattern>
+	</servlet-mapping>
+  
+    <!-- Servlet for Workspace Light Tree -->
+  <servlet>
+        <servlet-name>WorkspaceLightService</servlet-name>
+         <servlet-class>org.gcube.portlets.user.workspace.lighttree.server.WorkspaceServiceImpl</servlet-class>
+    </servlet>
+ 
+    <servlet-mapping>
+       <servlet-name>WorkspaceLightService</servlet-name>
+       <url-pattern>/crossmappingportlet/WorkspaceLightService</url-pattern>
+    </servlet-mapping>
+	
+	<!-- Logging -->
+	  <servlet>
+	    <servlet-name>remoteLoggingServlet</servlet-name>
+	    <servlet-class>com.google.gwt.logging.server.RemoteLoggingServiceImpl</servlet-class>
+	  </servlet>
+	 
+	  <servlet-mapping>
+	    <servlet-name>remoteLoggingServlet</servlet-name>
+	    <url-pattern>/crossmappingportlet/remote_logging</url-pattern>
+	  </servlet-mapping>
+	
+
+  <!-- Default page to serve -->
+  <welcome-file-list>
+    <welcome-file>CrossMappingPortlet.html</welcome-file>
+  </welcome-file-list>
+  
+</web-app>

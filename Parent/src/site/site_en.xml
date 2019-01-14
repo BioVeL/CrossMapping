@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  OpenBio Xmap Parent
+  %%
+  Copyright (C) 2012 - 2013 Cardiff University
+  %%
+  Use of this software is governed by the attached licence file. If no licence 
+  file is present the software must not be used.
+  
+  The use of this software, including reverse engineering, for any other purpose 
+  is prohibited without the express written permission of the software owner, 
+  Cardiff University.
+  #L%
+  -->
+
+
+<project xmlns="http://maven.apache.org/DECORATION/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.0 http://maven.apache.org/xsd/decoration-1.0.0.xsd">
+
+	<bannerLeft>
+		<name>OpenBio</name>
+		<src>images/eubraz_small.png</src>
+		<href>http://www.eubrazilopenbio.eu/</href>
+	</bannerLeft>	
+	
+	<bannerRight>
+		<name>Cardiff University</name>
+		<src>images/CU_logo.jpg</src>
+		<href>http://www.cardiff.ac.uk/</href>
+	</bannerRight>	
+
+	<!--
+	<skin>
+		<groupId>org.apache.maven.skins</groupId>
+		<artifactId>maven-application-skin</artifactId>
+		<version>1.0</version>
+	</skin>
+	-->
+		
+  <body>
+    <links>
+      <item name="OpenBio" href="http://www.eubrazilopenbio.eu/" />
+      <item name="iLife" href="http://www.i4life.eu/"/>
+      <item name="Cardiff University" href="http://www.cardiff.ac.uk/"/>
+    </links>  
+	
+	<breadcrumbs>
+		<item name="XMap" href="./index.html"/>
+	</breadcrumbs>	
+  
+    <menu name="XMap Overview" inherit="top">
+      <item name="Index" href="index.html"/>
+      <item name="About" href="about.html"/>
+      <item name="FAQ" href="faq.html"/>	  	  
+    </menu>
+	
+    <menu name="Examples">
+      <item name="How to run the crossmap" href="examples/testXMap.html"/>
+    </menu>
+
+	
+	<menu ref="parent" inherit="top"/>
+	
+	<!--<menu ref="modules" inherit="bottom"/>-->
+    <menu name="Modules">
+		<item name="Applications" href="#">
+			<item name="CrossMapping Portlet" href="CrossMappingPortlet/index.html"/>  
+			<item name="Web Service" href="CrossMapping/index.html"/>  			
+		</item>
+		<item name="Core" href="#">
+			<item name="XMap Business Logic" href="XMap/index.html"/>  			
+		</item>	
+		<item name="Common" href="#">
+			<item name="Service Interfaces" href="ServiceInterfaces/index.html"/>  
+			<item name="Utils" href="Utils/index.html"/> 	  
+			<item name="Test Utils" href="TestUtils/index.html"/> 	  
+			<item name="Checklist Importer" href="ChecklistImporter/index.html"/> 	  			
+			<item name="Crossmapping DAO" href="CrossMapDAO/index.html"/> 	  
+			<item name="Importer DAO" href="ImportChecklistDAO/index.html"/> 	  
+			<item name="Admin DAO" href="AdminDAO/index.html"/> 
+			<item name="Util DAO" href="UtilDAO/index.html"/> 
+		</item>
+    </menu>	
+	
+	
+	<menu ref="reports" inherit="bottom"/>
+	
+  </body>
+</project>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <properties>
+    <title>About ${project.build.finalName}</title>
+    <author email="F.Quevedo.Fernandez@cs.cardiff.ac.uk">Francisco Quevedo</author>   
+  </properties>
+  <body>
+		
+	<section name="${project.build.finalName}">	
+
+		<subsection name="Description">  
+			<p>
+				Project that implement the UtilDAO, adding classes to abstract the developer of technical details
+				about databases, databases connection and exceptions.   	
+			</p>
+		</subsection>	
+							
+	</section>
+
+  </body>
+</document>

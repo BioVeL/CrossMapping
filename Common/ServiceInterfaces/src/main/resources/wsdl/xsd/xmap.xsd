@@ -1,0 +1,1111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  XMap Service Interfaces
+  %%
+  Copyright (C) 2012 - 2013 Cardiff University
+  %%
+  Use of this software is governed by the attached licence file. If no licence 
+  file is present the software must not be used.
+  
+  The use of this software, including reverse engineering, for any other purpose 
+  is prohibited without the express written permission of the software owner, 
+  Cardiff University.
+  #L%
+  -->
+
+
+<xsd:schema targetNamespace="http://xmap.openbio.org/common/serviceinterfaces/types/xmap"        
+        xmlns:xmapType="http://xmap.openbio.org/common/serviceinterfaces/types/xmap"	
+		xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		xmlns:xmime="http://www.w3.org/2005/05/xmlmime"	
+        elementFormDefault="qualified" attributeFormDefault="unqualified">
+				
+	
+			
+	<xsd:simpleType name="IdentifyExtraTaxaType">
+		<xsd:annotation>
+  			<xsd:documentation>Different possibilities for identifying extra taxa</xsd:documentation>
+		</xsd:annotation>	
+  		<xsd:restriction base="xsd:string">
+    		<xsd:enumeration value="NONE">
+    			<xsd:annotation>
+        			<xsd:documentation>None</xsd:documentation>
+      			</xsd:annotation>
+    		</xsd:enumeration>
+	    	<xsd:enumeration value="NAMES_ONLY">
+    			<xsd:annotation>
+        			<xsd:documentation>Names only</xsd:documentation>
+      			</xsd:annotation>
+    		</xsd:enumeration>	    	
+	    	<xsd:enumeration value="GENERIC_TRANSFER">
+    			<xsd:annotation>
+        			<xsd:documentation>look also for names with just epithets in common</xsd:documentation>
+      			</xsd:annotation>
+    		</xsd:enumeration>		    		    		    	
+		</xsd:restriction>
+	</xsd:simpleType>  	
+	
+	<xsd:complexType name="TaskResponse" abstract="true"/>
+							
+	<xsd:complexType name="TaskHandler">
+		<xsd:sequence>							
+			<xsd:element name="taskId" type="xmapType:TaskId"/>	
+			<xsd:element name="user" type="xsd:string"/>	
+			<xsd:element name="scope" type="xsd:string"/>										
+		</xsd:sequence>
+	</xsd:complexType>							
+					
+	<xsd:complexType name="TaskProgress">
+		<xsd:sequence>			
+			<xsd:element name="taskName" type="xsd:string" /> 	
+			<xsd:element name="type" type="xsd:string" /> 			
+			<xsd:element name="status" type="xmapType:TaskStatus" /> 					
+			<xsd:element name="details" type="xsd:string" />			
+			<xsd:element name="percentage" type="xsd:int" />							
+			<xsd:element name="startDate" type="xsd:long" />
+			<xsd:element name="finishDate" type="xsd:long" />	
+			<xsd:element name="user" type="xsd:string"/>	
+			<xsd:element name="scope" type="xsd:string"/>				
+			<xsd:element name="taskResponse" type="xmapType:TaskResponse" />				
+			<xsd:element name="subTasksProgress" type="xmapType:TaskProgress" minOccurs='0' maxOccurs='unbounded' />
+		</xsd:sequence>
+	</xsd:complexType>	
+		
+	<xsd:simpleType name='TaskId'>
+		<xsd:restriction base='xsd:string'/>
+	</xsd:simpleType>	
+	
+	<xsd:simpleType name="TaskStatus">
+		<xsd:annotation>
+  			<xsd:documentation>Different state in which a task can be found</xsd:documentation>
+		</xsd:annotation>	
+  		<xsd:restriction base="xsd:string">
+    		<xsd:enumeration value="Pending">
+    			<xsd:annotation>
+        			<xsd:documentation>Task is pending to execute</xsd:documentation>
+      			</xsd:annotation>
+    		</xsd:enumeration>
+	    	<xsd:enumeration value="Active">
+    			<xsd:annotation>
+        			<xsd:documentation>Task is being executed</xsd:documentation>
+      			</xsd:annotation>
+    		</xsd:enumeration>	  
+	    	<xsd:enumeration value="Cancelling">
+    			<xsd:annotation>
+        			<xsd:documentation>Task is being cancelled</xsd:documentation>
+      			</xsd:annotation>
+    		</xsd:enumeration>	    		  	
+	    	<xsd:enumeration value="Completed">
+    			<xsd:annotation>
+        			<xsd:documentation>Task has been executed successfully</xsd:documentation>
+      			</xsd:annotation>
+    		</xsd:enumeration>		    	
+	    	<xsd:enumeration value="Failed">
+	    		<xsd:annotation>
+        			<xsd:documentation>Task has failed</xsd:documentation>
+      			</xsd:annotation>
+    		</xsd:enumeration>		    		    	
+		</xsd:restriction>
+	</xsd:simpleType>   
+	
+	
+	<xsd:simpleType name="UserKnowledgeLevelForRefinement">
+		<xsd:annotation>
+  			<xsd:documentation>Different levels of user knwoledge to apply to a cross-map for refinement</xsd:documentation>
+		</xsd:annotation>	
+  		<xsd:restriction base="xsd:string">
+    		<xsd:enumeration value="None">
+    			<xsd:annotation>
+        			<xsd:documentation>Don't apply user knowledge</xsd:documentation>
+      			</xsd:annotation>
+    		</xsd:enumeration>
+	    	<xsd:enumeration value="XMap">
+    			<xsd:annotation>
+        			<xsd:documentation>Only use the knowledge indicate for this xmap</xsd:documentation>
+      			</xsd:annotation>
+    		</xsd:enumeration>	  
+	    	<xsd:enumeration value="User">
+    			<xsd:annotation>
+        			<xsd:documentation>Use all the knowlegde set by this user which is not conflicting amongst it</xsd:documentation>
+      			</xsd:annotation>
+    		</xsd:enumeration>	    		  	
+	    	<xsd:enumeration value="Global">
+    			<xsd:annotation>
+        			<xsd:documentation>Use all the knowlegde set by any user which is not conflictingg amongst it</xsd:documentation>
+      			</xsd:annotation>
+    		</xsd:enumeration>	    	
+		</xsd:restriction>
+	</xsd:simpleType>  	
+	
+	
+
+
+	<!--Upload checklist-->
+	<xsd:element name="uploadChecklistFile">
+		<xsd:complexType>
+			<xsd:sequence>
+            	<xsd:element name="fileName" type="xsd:string"/>
+                <xsd:element name="binaryData" type="xsd:base64Binary" xmime:expectedContentTypes="application/octet-stream"/>
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>	                					
+			</xsd:sequence>
+		</xsd:complexType>		
+	</xsd:element>				
+	
+	<xsd:element name="uploadChecklistFileResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="uploadResult" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>			
+	
+	
+	<!--Get list of uploaded checklist files-->
+	<xsd:element name="getChecklistFilesUploaded">
+		<xsd:complexType>
+			<xsd:sequence>		
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>	       				
+			</xsd:sequence>
+		</xsd:complexType>		
+	</xsd:element>				
+			
+	<xsd:element name="getChecklistFilesUploadedResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="fileName" type="xsd:string" maxOccurs='unbounded'/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<!-- Delete file of checklist uploaded -->
+	<xsd:element name="deleteChecklistFileUploaded">
+		<xsd:complexType>
+			<xsd:sequence>		
+				<xsd:element name="fileName" type="xsd:string"/>		
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>					
+			</xsd:sequence>
+		</xsd:complexType>		
+	</xsd:element>				
+			
+	<xsd:element name="deleteChecklistFileUploadedResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="deleteResult" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>			
+
+
+	<!--Import checklist into database-->
+	<xsd:element name="importChecklist">
+		<xsd:complexType>
+			<xsd:sequence>								
+				<xsd:element name="fileName" type="xsd:string" />
+				<xsd:element name="provider" type="xsd:string" />
+				<xsd:element name="checklistName" type="xsd:string" />	
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>	       	
+			</xsd:sequence>
+		</xsd:complexType>		
+	</xsd:element>	
+		
+	<xsd:element name="importChecklistResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="taskHandler" type="xmapType:TaskHandlerImportChecklist"/>				
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>	
+	
+	<xsd:complexType name="TaskHandlerImportChecklist">
+		<xsd:complexContent>
+			<xsd:extension base="xmapType:TaskHandler">		
+				<xsd:sequence>					
+					<xsd:element name="taskResponse" type="xmapType:ImportChecklistTaskResponse" />
+				</xsd:sequence>
+			</xsd:extension>			
+		</xsd:complexContent>				
+	</xsd:complexType>			
+	
+	<xsd:complexType name="ImportChecklistTaskResponse">
+		<xsd:complexContent>
+			<xsd:extension base="xmapType:TaskResponse">		
+				<xsd:sequence>
+					<xsd:element name="importedChecklistId" type="xsd:string"/>
+				</xsd:sequence>				
+			</xsd:extension>			
+		</xsd:complexContent>
+	</xsd:complexType>				
+			
+	<!--Get list of checklist imported-->
+	<xsd:element name="getChecklistsImported">
+		<xsd:complexType>
+			<xsd:sequence>			
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>
+				<xsd:element name="status" type="xmapType:TaskStatus" minOccurs="0"/>	
+			</xsd:sequence>
+		</xsd:complexType>		
+	</xsd:element>				
+			
+	<xsd:element name="getChecklistsImportedResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="checklists" type="xmapType:ChecklistSeq"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>			
+		
+	
+	<!-- Delete checklist imported -->
+	<xsd:element name="deleteChecklistImported">
+		<xsd:complexType>
+			<xsd:sequence>		
+				<xsd:element name="checklistId" type="xsd:string"/>		
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>	  					
+			</xsd:sequence>
+		</xsd:complexType>		
+	</xsd:element>				
+			
+	<xsd:element name="deleteChecklistImportedResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="deleteResult" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>				
+	
+   <xsd:complexType name='ChecklistSeq'>
+      <xsd:sequence>
+         <xsd:element name='checklist' type='xmapType:Checklist' maxOccurs='unbounded'/>
+      </xsd:sequence>
+   </xsd:complexType>		
+	
+	<xsd:complexType name="Checklist">
+		<xsd:sequence>
+			<xsd:element name="id" type="xsd:string"/>
+			<xsd:element name="name" type="xsd:string"/>
+			<xsd:element name="status" type="xmapType:TaskStatus"/>
+			<xsd:element name="prefixTableDB" type="xsd:string"/>
+			<xsd:element name="importedFileName" type="xsd:string"/>
+			<xsd:element name="user" type="xsd:string"/>
+			<xsd:element name="scope" type="xsd:string"/>	
+			<xsd:element name="taskId" type="xmapType:TaskId"/>
+		</xsd:sequence>						
+	</xsd:complexType>			
+		
+	
+	
+	<!--Run a xMap between 2 checklists-->
+	<xsd:element name="runXmap">
+		<xsd:complexType>
+			<xsd:sequence>		
+				<xsd:element name="xmapName" type="xsd:string" />
+				<xsd:element name="description" type="xsd:string" />
+				<xsd:element name="leftChecklistId" type="xsd:string" />
+				<xsd:element name="rightChecklistId" type="xsd:string" />					
+				<xsd:element name="strict" type="xsd:boolean" />
+				<xsd:element name="identifyExtraTaxa" type="xmapType:IdentifyExtraTaxaType" />
+				<xsd:element name="compareHigherTaxa" type="xsd:boolean" />
+				<xsd:element name="highestTaxonomicRankToCompare" type="xmapType:TaxonomicRank"/>
+				<xsd:element name="userRefinementLevel" type="xmapType:UserKnowledgeLevelForRefinement"/>										
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>						
+			</xsd:sequence>
+		</xsd:complexType>		
+	</xsd:element>	
+			
+	<xsd:element name="runXmapResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="taskHandler" type="xmapType:TaskHandlerRunXmap"/>	
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>		
+	
+	<!-- Re-run a xMap-->
+	<xsd:element name="reRunXmap">
+		<xsd:complexType>
+			<xsd:sequence>		
+				<xsd:element name="xMapId" type="xsd:string" />
+				<xsd:element name="description" type="xsd:string" />					
+				<xsd:element name="strict" type="xsd:boolean" />
+				<xsd:element name="identifyExtraTaxa" type="xmapType:IdentifyExtraTaxaType" />
+				<xsd:element name="compareHigherTaxa" type="xsd:boolean" />
+				<xsd:element name="highestTaxonomicRankToCompare" type="xmapType:TaxonomicRank"/>
+				<xsd:element name="userRefinementLevel" type="xmapType:UserKnowledgeLevelForRefinement"/>
+				<xsd:element name="overWritePreviousXMap" type="xsd:boolean" />										
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>									
+			</xsd:sequence>
+		</xsd:complexType>		
+	</xsd:element>	
+			
+	<xsd:element name="reRunXmapResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="taskHandler" type="xmapType:TaskHandlerRunXmap"/>	
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>		
+	
+	
+	<xsd:complexType name="TaskHandlerRunXmap">
+		<xsd:complexContent>
+			<xsd:extension base="xmapType:TaskHandler">		
+				<xsd:sequence>					
+					<xsd:element name="taskResponse" type="xmapType:RunXmapTaskResponse" />
+				</xsd:sequence>
+			</xsd:extension>			
+		</xsd:complexContent>				
+	</xsd:complexType>			
+	
+	<xsd:complexType name="RunXmapTaskResponse">
+		<xsd:complexContent>
+			<xsd:extension base="xmapType:TaskResponse">		
+				<xsd:sequence>
+					<xsd:element name="xMapId" type="xsd:string"/>
+				</xsd:sequence>				
+			</xsd:extension>			
+		</xsd:complexContent>
+	</xsd:complexType>		
+	
+	
+	<!-- Get list of xmaps-->
+	<xsd:element name="getCrossMaps">
+		<xsd:complexType>
+			<xsd:sequence>			
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>			
+				<xsd:element name="status" type="xmapType:TaskStatus" minOccurs="0"/>	
+			</xsd:sequence>
+		</xsd:complexType>		
+	</xsd:element>				
+			
+	<xsd:element name="getCrossMapsResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="xmaps" type="xmapType:XMapSeq"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>		
+	
+	<!-- Delete completed crossmap -->
+	<xsd:element name="deleteCrossMap">
+		<xsd:complexType>
+			<xsd:sequence>		
+				<xsd:element name="xMapId" type="xsd:string"/>
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>	  							
+			</xsd:sequence>
+		</xsd:complexType>		
+	</xsd:element>				
+			
+	<xsd:element name="deleteCrossMapResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="deleteResult" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>		
+							
+   <xsd:complexType name='XMapSeq'>
+      <xsd:sequence>
+         <xsd:element name='xMap' type='xmapType:XMap' maxOccurs='unbounded'/>
+      </xsd:sequence>
+   </xsd:complexType>			
+		
+	<xsd:complexType name="XMap">
+		<xsd:sequence>
+			<xsd:element name="id" type="xsd:string"/>
+			<xsd:element name="shortName" type="xsd:string"/>
+			<xsd:element name="longName" type="xsd:string"/>
+			<xsd:element name="leftChecklistId" type="xsd:string"/>
+			<xsd:element name="leftChecklistName" type="xsd:string"/>
+			<xsd:element name="rightChecklistId" type="xsd:string"/>
+			<xsd:element name="rightChecklistName" type="xsd:string"/>
+			<xsd:element name="strict" type="xsd:boolean"/>
+			<xsd:element name="identifyExtraTaxa" type="xmapType:IdentifyExtraTaxaType"/>
+			<xsd:element name="compareHigherTaxa" type="xsd:boolean"/>
+			<xsd:element name="higherRankToCompare" type="xmapType:TaxonomicRank"/>
+			<xsd:element name="status" type="xmapType:TaskStatus"/>
+			<xsd:element name="prefixTableDB" type="xsd:string"/>
+			<xsd:element name="user" type="xsd:string"/>	
+			<xsd:element name="scope" type="xsd:string"/>			
+			<xsd:element name="taskId" type="xmapType:TaskId"/>
+		</xsd:sequence>						
+	</xsd:complexType>				
+			
+		
+	<!-- Export the resuts of a xMap into a zip file -->		
+	<xsd:element name="exportResultXmap">
+		<xsd:complexType>
+			<xsd:sequence>		
+				<xsd:element name="xMapId" type="xsd:string" />	
+				<xsd:element name="includeAcceptedName" type="xsd:boolean" />
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>					
+			</xsd:sequence>
+		</xsd:complexType>		
+	</xsd:element>				
+			
+	<xsd:element name="exportResultXmapResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="taskHandler" type="xmapType:TaskHandlerExportXmap"/>					
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>		
+	
+	
+	<xsd:complexType name="TaskHandlerExportXmap">
+		<xsd:complexContent>
+			<xsd:extension base="xmapType:TaskHandler">		
+				<xsd:sequence>					
+					<xsd:element name="taskResponse" type="xmapType:ExportXmapTaskResponse" />
+				</xsd:sequence>
+			</xsd:extension>			
+		</xsd:complexContent>				
+	</xsd:complexType>			
+	
+	<xsd:complexType name="ExportXmapTaskResponse">
+		<xsd:complexContent>
+			<xsd:extension base="xmapType:TaskResponse">		
+				<xsd:sequence>
+					<xsd:element name="xmapResultFile" type="xsd:string"/>
+				</xsd:sequence>				
+			</xsd:extension>			
+		</xsd:complexContent>
+	</xsd:complexType>		
+		
+	
+	<!-- Get list available xmap results files -->
+	<xsd:element name="getCrossMapResultsExported">
+		<xsd:complexType>
+			<xsd:sequence>		
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>	
+				<xsd:element name="status" type="xmapType:TaskStatus" minOccurs="0"/>						
+			</xsd:sequence>
+		</xsd:complexType>		
+	</xsd:element>				
+			
+	<xsd:element name="getCrossMapResultsExportedResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="xmapResults" type="xmapType:ResultExportXmapSeq"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>				
+	
+	
+	<!-- Delete file with the result of the crossmap -->
+	<xsd:element name="deleteCrossMapResultsExported">
+		<xsd:complexType>
+			<xsd:sequence>		
+				<xsd:element name="xMapResultId" type="xsd:string"/>	
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>	  						
+			</xsd:sequence>
+		</xsd:complexType>		
+	</xsd:element>				
+			
+	<xsd:element name="deleteCrossMapResultsExportedResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="deleteResult" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>			
+	
+	
+   <xsd:complexType name='ResultExportXmapSeq'>
+      <xsd:sequence>
+         <xsd:element name='exportResultXmap' type='xmapType:ResultExportXmap' maxOccurs='unbounded'/>
+      </xsd:sequence>
+   </xsd:complexType>		
+	
+	<xsd:complexType name="ResultExportXmap">
+		<xsd:sequence>
+			<xsd:element name="id" type="xsd:string"/>
+			<xsd:element name="name" type="xsd:string"/>
+			<xsd:element name="xMapId" type="xsd:string"/>
+			<xsd:element name="includeAcceptedName" type="xsd:boolean" />			
+			<xsd:element name="status" type="xmapType:TaskStatus"/>
+			<xsd:element name="resultFileURL" type="xsd:string"/>
+			<xsd:element name="exportDate" type="xsd:long" />
+			<xsd:element name="user" type="xsd:string"/>
+			<xsd:element name="scope" type="xsd:string"/>	
+			<xsd:element name="taskId" type="xmapType:TaskId"/>
+		</xsd:sequence>						
+	</xsd:complexType>			
+	
+	
+	<!-- Get task progress -->
+	<xsd:element name="getTaskProgress">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="taskId" type="xmapType:TaskId"/>
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>	  				
+			</xsd:sequence>		
+		</xsd:complexType>	
+	</xsd:element>			
+			
+	<xsd:element name="getTaskProgressResponse">		
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="taskProgress" type="xmapType:TaskProgress"/>
+			</xsd:sequence>		
+		</xsd:complexType>
+	</xsd:element>
+	
+	
+	<!-- Get list active tasks -->
+	<xsd:element name="getActiveTasks">
+		<xsd:complexType>
+			<xsd:sequence>		
+				<xsd:element name="user" type="xsd:string"/>
+				<xsd:element name="scope" type="xsd:string"/>				
+			</xsd:sequence>
+		</xsd:complexType>		
+	</xsd:element>				
+			
+	<xsd:element name="getActiveTasksResponse">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="taskId" type="xmapType:TaskId" maxOccurs='unbounded'/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>	
+		
+		
+	<!-- Cancel task -->
+	<xsd:element name="cancelTask">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="taskId" type="xmapType:TaskId"/>
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>	  				
+			</xsd:sequence>		
+		</xsd:complexType>	
+	</xsd:element>			
+			
+	<xsd:element name="cancelTaskResponse">		
+		<xsd:complexType>
+			<xsd:sequence>	
+				<xsd:element name="cancelResult" type="xsd:string"/>			
+			</xsd:sequence>		
+		</xsd:complexType>
+	</xsd:element>			
+			
+			
+			
+	<!-- Get entries in checklist table (well in the view NameUse_vw) -->
+	<xsd:element name="getEntriesInChecklist">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="checklistId" type="xsd:string"/>			
+				<xsd:element name="filters" type="xmapType:DataRetrievalFilterSeq" minOccurs="0"/>
+				<xsd:element name="sorts" type="xmapType:DataRetrievalSortSeq" minOccurs="0"/>
+				<xsd:element name="start" type="xsd:int"/>
+				<xsd:element name="end" type="xsd:int"/>
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>	  								
+			</xsd:sequence>	
+		</xsd:complexType>			
+	</xsd:element>			
+			
+	<xsd:element name="getEntriesInChecklistResponse">		
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="entries" type="xmapType:EntriesInChecklistSeq"/>
+			</xsd:sequence>		
+		</xsd:complexType>
+	</xsd:element>
+	
+   <xsd:complexType name='EntriesInChecklistSeq'>
+      <xsd:sequence>
+         <xsd:element name='entry' type='xmapType:EntryInChecklist' maxOccurs='unbounded'/>
+      </xsd:sequence>
+	  <xsd:attribute name="start" type="xsd:int" use="required"/>	
+	  <xsd:attribute name="end" type="xsd:int" use="required"/>
+	  <xsd:attribute name="totalEntries" type="xsd:int" use="required"/>      
+	  <xsd:attribute name="returnedEntries" type="xsd:int" use="required"/>
+   </xsd:complexType>		
+
+	<xsd:complexType name="EntryInChecklist">
+		<xsd:sequence>		
+			<xsd:element name="taxonId" type="xsd:string"/>
+			<xsd:element name="tidyName" type="xsd:string"/>
+			<xsd:element name="status" type="xsd:string"/>	
+			<xsd:element name="higher" type="xsd:string"/>
+			<xsd:element name="species" type="xsd:string" />						
+			<xsd:element name="infraspecies" type="xsd:string" />
+			<xsd:element name="authority" type="xsd:string"/>
+			<xsd:element name="rank" type="xsd:string"/>
+			<xsd:element name="parentTaxonId" type="xsd:string" minOccurs="0"/>			
+		</xsd:sequence>						
+	</xsd:complexType>	 	
+	
+	<!-- Get entries in xmap table -->
+	<xsd:element name="getEntriesInXMap">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="xmapId" type="xsd:string"/>			
+				<xsd:element name="filters" type="xmapType:DataRetrievalFilterSeq" minOccurs="0"/>
+				<xsd:element name="sorts" type="xmapType:DataRetrievalSortSeq" minOccurs="0"/>
+				<xsd:element name="start" type="xsd:int"/>
+				<xsd:element name="end" type="xsd:int"/>	
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>	  							
+			</xsd:sequence>	
+		</xsd:complexType>			
+	</xsd:element>			
+			
+	<xsd:element name="getEntriesInXMapResponse">		
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="entries" type="xmapType:EntriesInXMapSeq"/>
+			</xsd:sequence>		
+		</xsd:complexType>
+	</xsd:element>
+		
+   <xsd:complexType name='EntriesInXMapSeq'>
+      <xsd:sequence>
+         <xsd:element name='entry' type='xmapType:EntryInXMap' maxOccurs='unbounded'/>
+      </xsd:sequence>
+	  <xsd:attribute name="start" type="xsd:int" use="required"/>	
+	  <xsd:attribute name="end" type="xsd:int" use="required"/>
+	  <xsd:attribute name="totalEntries" type="xsd:int" use="required"/>      
+	  <xsd:attribute name="returnedEntries" type="xsd:int" use="required"/>   
+   </xsd:complexType>		
+
+	<xsd:complexType name="EntryInXMap">
+		<xsd:sequence>		
+			<xsd:element name="taxonIdLeft" type="xsd:string"/>
+			<xsd:element name="checklistNameLeft" type="xsd:string"/>
+			<xsd:element name="rankLeft" type="xsd:string"/>
+			<xsd:element name="acceptedNameLeft" type="xsd:string"/>	
+			<xsd:element name="uuidLeft" type="xsd:string"/>
+			<xsd:element name="relationship" type="xsd:string" />						
+			<xsd:element name="taxonIdRight" type="xsd:string" />			
+			<xsd:element name="checklistNameRight" type="xsd:string"/>
+			<xsd:element name="rankRight" type="xsd:string"/>
+			<xsd:element name="acceptedNameRight" type="xsd:string"/>
+			<xsd:element name="uuidRight" type="xsd:string"/>						
+		</xsd:sequence>						
+	</xsd:complexType>	 	
+
+
+   <xsd:complexType name='DataRetrievalFilterSeq'>
+      <xsd:sequence>
+         <xsd:element name='filter' type='xmapType:DataRetrievalFilter' maxOccurs='unbounded'/>
+      </xsd:sequence>
+    </xsd:complexType>		
+
+	<xsd:complexType name="DataRetrievalFilter">
+		<xsd:sequence>		 
+				<xsd:element name="type" type="xmapType:DataRetrievalFilterType"/>
+				<xsd:element name="column" type="xsd:string"/>
+				<xsd:element name="value" type="xsd:string"/>		
+		</xsd:sequence>						
+	</xsd:complexType>	 	
+
+	<xsd:simpleType name="DataRetrievalFilterType">
+		<xsd:annotation>
+  			<xsd:documentation>Different filter types</xsd:documentation>
+		</xsd:annotation>	
+  		<xsd:restriction base="xsd:string">
+	    	<xsd:enumeration value="EXACT">
+    			<xsd:annotation>
+        			<xsd:documentation>exact</xsd:documentation>
+      			</xsd:annotation>
+    		</xsd:enumeration>	    	
+	    	<xsd:enumeration value="START_WITH">
+    			<xsd:annotation>
+        			<xsd:documentation>start with</xsd:documentation>
+      			</xsd:annotation>
+    		</xsd:enumeration>	
+	    	<xsd:enumeration value="CONTAINS">
+    			<xsd:annotation>
+        			<xsd:documentation>contains</xsd:documentation>
+      			</xsd:annotation>
+    		</xsd:enumeration>		    
+	    	<xsd:enumeration value="END_WITH">
+    			<xsd:annotation>
+        			<xsd:documentation>end with</xsd:documentation>
+      			</xsd:annotation>
+    		</xsd:enumeration>		    					    		    		    	
+		</xsd:restriction>
+	</xsd:simpleType>  			
+			
+	
+   <xsd:complexType name='DataRetrievalSortSeq'>
+      <xsd:sequence>
+         <xsd:element name='sort' type='xmapType:DataRetrievalSort' maxOccurs='unbounded'/>
+      </xsd:sequence>
+    </xsd:complexType>		
+
+	<xsd:complexType name="DataRetrievalSort">
+		<xsd:sequence>		 
+				<xsd:element name="column" type="xsd:string"/>
+				<xsd:element name="direction" type="xmapType:DataRetrievalSortingDirection"/>	
+		</xsd:sequence>						
+	</xsd:complexType>				
+						
+	<xsd:simpleType name="DataRetrievalSortingDirection">
+		<xsd:annotation>
+  			<xsd:documentation>Different sorting direcctions</xsd:documentation>
+		</xsd:annotation>	
+  		<xsd:restriction base="xsd:string">
+    		<xsd:enumeration value="ASC">
+    			<xsd:annotation>
+        			<xsd:documentation>ascendent</xsd:documentation>
+      			</xsd:annotation>
+    		</xsd:enumeration>
+	    	<xsd:enumeration value="DESC">
+    			<xsd:annotation>
+        			<xsd:documentation>descendent</xsd:documentation>
+      			</xsd:annotation>
+    		</xsd:enumeration>	    		    				    		    		    
+		</xsd:restriction>
+	</xsd:simpleType>  						
+	  					
+	  					
+	<!-- Get taxonomic ranks in xmap table -->
+	<xsd:element name="getTaxonomicRanks">
+		<xsd:complexType>
+			<xsd:sequence>										
+			</xsd:sequence>	
+		</xsd:complexType>			
+	</xsd:element>			
+			
+	<xsd:element name="getTaxonomicRanksResponse">		
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="taxonomicRanks" type="xmapType:TaxonomicRankSeq"/>				
+			</xsd:sequence>		
+		</xsd:complexType>
+	</xsd:element>
+	
+	
+	<xsd:complexType name="TaxonomicRankSeq">
+		<xsd:sequence>		 
+				<xsd:element name="rank" type="xmapType:TaxonomicRank" maxOccurs='unbounded'/>
+		</xsd:sequence>						
+	</xsd:complexType>		
+	
+			
+	<xsd:complexType name="TaxonomicRank">
+		<xsd:sequence>		 
+				<xsd:element name="id" type="xsd:string"/>
+				<xsd:element name="name" type="xsd:string"/>	
+				<xsd:element name="parentId" type="xsd:string" minOccurs="0"/>
+				<xsd:element name="isHigherRank" type="xsd:boolean"/>
+		</xsd:sequence>						
+	</xsd:complexType>			
+	
+		
+	
+	<!-- Get taxon detail-->
+	<xsd:element name="getTaxonDetail">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="checklistId" type="xsd:string"/>			
+				<xsd:element name="taxonId" type="xsd:string"/>
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>	  							
+			</xsd:sequence>	
+		</xsd:complexType>			
+	</xsd:element>			
+			
+	<xsd:element name="getTaxonDetailResponse">		
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="taxonDetail" type="xmapType:TaxonDetail"/>
+			</xsd:sequence>		
+		</xsd:complexType>
+	</xsd:element>
+		
+   <xsd:complexType name='TaxonDetail'>
+      <xsd:sequence>
+      	 <xsd:element name="acceptedName" type="xmapType:EntryInChecklist"/>
+         <xsd:element name='synonym' type='xmapType:EntryInChecklist' minOccurs="0" maxOccurs='unbounded'/>
+         <xsd:element name="parent"  type='xmapType:EntryInChecklist' minOccurs="0"/>
+         <xsd:element name='child' type='xmapType:EntryInChecklist' minOccurs="0" maxOccurs='unbounded'/>
+		 <xsd:element name="rawData" type='xmapType:RawData'/>			         
+      </xsd:sequence>	   
+   </xsd:complexType>		
+
+	<xsd:complexType name="RawData">
+		<xsd:sequence>		 
+			<xsd:element name="registers" type="xmapType:RawDataRegisterSeq"/>
+		</xsd:sequence>						
+	</xsd:complexType>				
+
+	<xsd:complexType name="RawDataRegisterSeq">
+		<xsd:sequence>		 
+				<xsd:element name="register" type="xmapType:RawDataRegister" maxOccurs='unbounded'/>
+		</xsd:sequence>						
+	</xsd:complexType>				  			
+
+	<xsd:complexType name="RawDataRegister">	
+		<xsd:sequence>		
+			<xsd:element name="rawDataField" minOccurs="1" maxOccurs="unbounded">               				   			
+	   			<xsd:complexType>
+	            	<xsd:sequence>
+	  					<xsd:element name="name" type="xsd:string"/>
+	  					<xsd:element name="value" type="xsd:string"/>
+	  				 </xsd:sequence>
+	  			</xsd:complexType>
+			</xsd:element> 			
+	     </xsd:sequence>
+   </xsd:complexType>		
+   
+   	<!-- Get relationship detail-->
+	<xsd:element name="getXMapRelationshipDetail">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="xmapId" type="xsd:string"/>			
+				<xsd:element name="leftTaxonId" type="xsd:string"/>
+				<xsd:element name="rightTaxonId" type="xsd:string"/>
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>	  							
+			</xsd:sequence>	
+		</xsd:complexType>			
+	</xsd:element>			
+			
+	<xsd:element name="getXMapRelationshipDetailResponse">		
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="relationshipDetail" type="xmapType:RelationshipDetail"/>
+			</xsd:sequence>		
+		</xsd:complexType>
+	</xsd:element>
+   	  	
+   <xsd:complexType name='RelationshipDetail'>
+      <xsd:sequence>
+      	 <xsd:element name="directRelationship" type="xmapType:RelationshipPairTaxa"/>
+         <xsd:element name="indirectRelationshipLeft2Right" type="xmapType:RelationshipPairTaxa" minOccurs="0" maxOccurs="unbounded"/>
+         <xsd:element name="indirectRelationshipRight2Left" type="xmapType:RelationshipPairTaxa" minOccurs="0" maxOccurs="unbounded"/>			         
+      </xsd:sequence>	   
+   </xsd:complexType>   	  	
+   	  					
+	<xsd:complexType name="RelationshipPairTaxaSeq">
+		<xsd:sequence>		 
+			<xsd:element name="relationshipPairTaxa" type="xmapType:RelationshipPairTaxa" minOccurs="1" maxOccurs="unbounded"/>               				   			
+		</xsd:sequence>						
+	</xsd:complexType>	
+
+   	  					
+	<xsd:complexType name="RelationshipPairTaxa">
+		<xsd:sequence>		 
+			<xsd:element name="elementRel" type="xmapType:RelationshipPairTaxaEntry" minOccurs="1" maxOccurs="unbounded"/>               				   			
+		</xsd:sequence>		
+		<xsd:attribute name="leftTaxonId" type="xsd:string" use="required"/>
+		<xsd:attribute name="leftTaxonName" type="xsd:string" use="required"/>
+		<xsd:attribute name="leftTaxonRank" type="xsd:string" use="required"/>
+		<xsd:attribute name="relationship" type="xsd:string" use="required"/>		
+		<xsd:attribute name="rightTaxonId" type="xsd:string" use="required"/>
+		<xsd:attribute name="rightTaxonName" type="xsd:string" use="required"/>
+		<xsd:attribute name="rightTaxonRank" type="xsd:string" use="required"/>
+	</xsd:complexType>		
+	
+	<xsd:complexType name="RelationshipPairTaxaEntry">	
+		<xsd:sequence>		
+			<xsd:element name="taxId1" type="xsd:string"/>
+			<xsd:element name="element1" type="xsd:string"/>
+			<xsd:element name="extra1" type="xsd:string"/>
+			<xsd:element name="relType" type="xsd:string"/>
+			<xsd:element name="taxId2" type="xsd:string"/>
+			<xsd:element name="element2" type="xsd:string"/>
+			<xsd:element name="extra2" type="xsd:string"/>	  					
+			<xsd:element name="inOthers" type="xsd:boolean"/>
+			<xsd:element name="nameLevel" type="xsd:boolean"/>
+	     </xsd:sequence>
+   </xsd:complexType>		
+   
+   
+   		   	  						  					
+	<!-- Get children-->
+	<xsd:element name="getTaxonChildren">
+		<xsd:complexType>
+			<xsd:sequence>	
+				<xsd:element name="checklistId" type="xsd:string"/>									
+				<xsd:element name="taxonId" type="xsd:string"/>
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>
+			</xsd:sequence>	
+		</xsd:complexType>			
+	</xsd:element>			
+			
+	<xsd:element name="getTaxonChildrenResponse">		
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="children" type="xmapType:TaxonSeq"/>				
+			</xsd:sequence>		
+		</xsd:complexType>
+	</xsd:element>
+	
+	<xsd:complexType name="TaxonSeq">
+		<xsd:sequence>		 
+			<xsd:element name="child" type="xmapType:Taxon" maxOccurs="unbounded"/>               				   			
+		</xsd:sequence>						
+	</xsd:complexType>	
+
+   	  					
+	<xsd:complexType name="Taxon">
+		<xsd:sequence>		 
+			<xsd:element name="checklistId" type="xsd:string"/>    
+			<xsd:element name="taxonId" type="xsd:string"/>
+			<xsd:element name="rank" type="xsd:string"/>
+			<xsd:element name="status" type="xsd:string"/>
+			<xsd:element name="acceptedName" type="xsd:string"/>
+        	<xsd:element name='synonyms' type='xsd:string' minOccurs="0" maxOccurs='unbounded'/>
+        	<xsd:element name="parentId"  type='xsd:string'/>
+         	<xsd:element name='childrenId' type='xsd:string' minOccurs="0" maxOccurs='unbounded'/>		
+         	<xsd:element name='xmapRels' type='xmapType:XMapRelPath' minOccurs="0" maxOccurs='unbounded'/>	           				   		
+		</xsd:sequence>				
+	</xsd:complexType>		
+	
+	
+	<xsd:complexType name="XMapRelPath">
+		<xsd:sequence>		 
+			<xsd:element name="relationship" type="xsd:string"/> 
+			<xsd:element name="otherTaxon" type="xmapType:Taxon"/> 
+			<xsd:element name="path" type="xsd:string" minOccurs="1" maxOccurs="unbounded"/>               				   			
+		</xsd:sequence>						
+	</xsd:complexType>
+		
+		
+	<!-- Get children plus relationships in xmap-->
+	<xsd:element name="getTaxonChildrenPlusRelationships">
+		<xsd:complexType>
+			<xsd:sequence>	
+				<xsd:element name="checklistId" type="xsd:string"/>									
+				<xsd:element name="taxonId" type="xsd:string"/>
+				<xsd:element name="xmapId" type="xsd:string"/>
+				<xsd:element name="isLeftTaxon" type="xsd:boolean"/>
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>
+			</xsd:sequence>	
+		</xsd:complexType>			
+	</xsd:element>			
+			
+	<xsd:element name="getTaxonChildrenPlusRelationshipsResponse">		
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="children" type="xmapType:TaxonSeq"/>				
+			</xsd:sequence>		
+		</xsd:complexType>
+	</xsd:element>							
+			
+			
+			
+			
+	<xsd:simpleType name="NamesRelationshipType">
+		<xsd:annotation>
+  			<xsd:documentation>Different possibilities of relationships between names</xsd:documentation>
+		</xsd:annotation>	
+  		<xsd:restriction base="xsd:string">
+    		<xsd:enumeration value="EQUAL">
+    			<xsd:annotation>
+        			<xsd:documentation>name1 equals to name2</xsd:documentation>
+      			</xsd:annotation>
+    		</xsd:enumeration>
+	    	<xsd:enumeration value="NOT_EQUAL">
+    			<xsd:annotation>
+        			<xsd:documentation>name1 not equals to name2</xsd:documentation>
+      			</xsd:annotation>
+    		</xsd:enumeration>	    	    		    		    	
+		</xsd:restriction>
+	</xsd:simpleType>  	
+						
+	<xsd:element name="addUserKnowledge">
+		<xsd:complexType>
+			<xsd:sequence>	
+				<xsd:element name="entry" type="xmapType:EntryInUserKnowledge"/>									
+				<xsd:element name="forceIncrementalXMap" type="xsd:boolean"/>				
+			</xsd:sequence>	
+		</xsd:complexType>			
+	</xsd:element>			
+			
+	<xsd:element name="addUserKnowledgeResponse">		
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="userKnowledgeId" type="xsd:string"/>	
+			</xsd:sequence>		
+		</xsd:complexType>
+	</xsd:element>															
+	
+		
+	<xsd:element name="deleteUserKnowledge">
+		<xsd:complexType>
+			<xsd:sequence>	
+				<xsd:element name="userKnowledgeId" type="xsd:string"/>	
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>
+			</xsd:sequence>	
+		</xsd:complexType>			
+	</xsd:element>			
+			
+	<xsd:element name="deleteUserKnowledgeResponse">		
+		<xsd:complexType>
+			<xsd:sequence>				
+			</xsd:sequence>		
+		</xsd:complexType>
+	</xsd:element>			
+	
+	<xsd:element name="getEntriesInUserKnowledge">
+		<xsd:complexType>
+			<xsd:sequence>	
+				<xsd:element name="filters" type="xmapType:DataRetrievalFilterSeq" minOccurs="0"/>
+				<xsd:element name="sorts" type="xmapType:DataRetrievalSortSeq" minOccurs="0"/>
+				<xsd:element name="start" type="xsd:int"/>
+				<xsd:element name="end" type="xsd:int"/>				
+				<xsd:element name="user" type="xsd:string"/>	
+				<xsd:element name="scope" type="xsd:string"/>
+			</xsd:sequence>	
+		</xsd:complexType>			
+	</xsd:element>			
+			
+	<xsd:element name="getEntriesInUserKnowledgeResponse">		
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="entries" type="xmapType:EntriesInUserKnowledgeSeq"/>				
+			</xsd:sequence>		
+		</xsd:complexType>
+	</xsd:element>				
+			
+		
+   <xsd:complexType name='EntriesInUserKnowledgeSeq'>
+      <xsd:sequence>
+         <xsd:element name='entry' type='xmapType:EntryInUserKnowledge' maxOccurs='unbounded'/>
+      </xsd:sequence>
+	  <xsd:attribute name="start" type="xsd:int" use="required"/>	
+	  <xsd:attribute name="end" type="xsd:int" use="required"/>
+	  <xsd:attribute name="totalEntries" type="xsd:int" use="required"/>      
+	  <xsd:attribute name="returnedEntries" type="xsd:int" use="required"/>   
+   </xsd:complexType>		
+
+	<xsd:complexType name="EntryInUserKnowledge">
+		<xsd:sequence>		
+			<xsd:element name="id" type="xsd:string"/>
+			<xsd:element name="name1" type="xsd:string"/>
+			<xsd:element name="relationship" type="xmapType:NamesRelationshipType"/>
+			<xsd:element name="name2" type="xsd:string"/>		
+			<xsd:element name="xMapId" type="xsd:string"/>		
+			<xsd:element name="xMapName" type="xsd:string"/>
+			<xsd:element name="user" type="xsd:string" />						
+			<xsd:element name="scope" type="xsd:string" />			
+			<xsd:element name="comment" type="xsd:string"/>				
+		</xsd:sequence>						
+	</xsd:complexType>	 			
+		
+</xsd:schema>

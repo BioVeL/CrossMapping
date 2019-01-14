@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>org.openbio.xmap</groupId>
+		<artifactId>OpenBio-Xmap-Parent</artifactId>
+		<version>1.1.1-SNAPSHOT</version>
+		<!--<relativePath>../../Parent/pom.xml</relativePath>-->
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.openbio.xmap</groupId>
+	<artifactId>Utils</artifactId>
+	<packaging>jar</packaging>
+	<version>1.1.1-SNAPSHOT</version>
+	<name>Xmap Utils</name>
+	
+	<properties>		
+		<urlSubversionRepository>${urlRootSubversionRepository}/Common/Utils</urlSubversionRepository>
+	</properties>	
+
+	<scm>
+		<connection>scm:svn:https://svn.cs.cf.ac.uk/OpenBio/CrossMapping/Projects/Common/Utils/trunk</connection>
+		<developerConnection>scm:svn:https://svn.cs.cf.ac.uk/OpenBio/CrossMapping/Projects/Common/Utils/trunk</developerConnection>
+		<url>https://svn.cs.cf.ac.uk/OpenBio/CrossMapping/Projects</url>
+	</scm>	
+	
+	<dependencies>       
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>ServiceInterfaces</artifactId>
+            <version>1.1.1-SNAPSHOT</version>
+        </dependency>
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>1.3.2</version>
+		</dependency>
+		
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+    </dependencies>
+
+</project>

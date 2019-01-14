@@ -1,0 +1,27 @@
+<!--
+  #%L
+  XMap Web Service Application
+  %%
+  Copyright (C) 2012 - 2013 Cardiff University
+  %%
+  Use of this software is governed by the attached licence file. If no licence 
+  file is present the software must not be used.
+  
+  The use of this software, including reverse engineering, for any other purpose 
+  is prohibited without the express written permission of the software owner, 
+  Cardiff University.
+  #L%
+  -->
+<Context path="/CrossMapping" docBase="CrossMapping"
+         reloadable="true" crossContext="true">
+
+
+    <!-- Datasource for the connection to the index trail database -->
+    <Resource name="jdbc/XMapDB" auth="Container" type="javax.sql.DataSource"
+              maxActive="300" maxIdle="10" maxWait="10000"
+              removeAbandoned="true"  logAbandoned="true" removeAbandonedTimeout="300"  
+              validationQuery="SELECT 1"
+              username="USERNAME" password="PASSWORD"
+              driverClassName="com.mysql.jdbc.Driver"
+              url="jdbc:mysql://HOSTNAME:3306/DATABASE?characterEncoding=UTF-8&amp;connectionCollation=utf8_unicode_ci"/>
+</Context>

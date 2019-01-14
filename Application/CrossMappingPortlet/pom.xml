@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>org.openbio.xmap</groupId>
+		<artifactId>OpenBio-Xmap-Parent</artifactId>
+		<version>1.1.1-SNAPSHOT</version>
+		<!--<relativePath>../../Parent/pom.xml</relativePath>-->
+	</parent>
+	
+	<groupId>org.openbio.xmap</groupId>
+	<artifactId>CrossMappingPortlet</artifactId>
+	<packaging>war</packaging>
+	<version>1.1.1-SNAPSHOT</version>
+	<name>XMap GUI CrossMapping Portlet</name>
+
+	<properties>
+		<!-- Convenience property to set the GWT version -->
+		<gwtVersion>2.4.0</gwtVersion>
+		<gwtMaven>2.4.0</gwtMaven>
+		
+		<!-- GWT needs at least java 1.5 -->
+		<maven.compiler.source>1.6</maven.compiler.source>
+		<maven.compiler.target>1.6</maven.compiler.target>
+			
+		<liferay.version>6.1.0</liferay.version>
+		
+		<urlSubversionRepository>${urlRootSubversionRepository}/Application/CrossMappingPortlet</urlSubversionRepository>
+	</properties>
+	
+	<scm>
+		<connection>scm:svn:https://svn.cs.cf.ac.uk/OpenBio/CrossMapping/Projects/Application/CrossMappingPortlet/trunk</connection>
+		<developerConnection>scm:svn:https://svn.cs.cf.ac.uk/OpenBio/CrossMapping/Projects/Application/CrossMappingPortlet/trunk</developerConnection>
+		<url>https://svn.cs.cf.ac.uk/OpenBio/CrossMapping/Projects</url>
+	</scm>	
+
+	<repositories>			 		
+		<repository>
+			<id>gcube-releases</id>
+			<url>http://maven.research-infrastructures.eu/nexus/content/repositories/gcube-releases</url>
+		</repository>
+		
+		<repository>
+			<id>gcube-snapshots</id>
+			<url>http://maven.research-infrastructures.eu/nexus/content/repositories/gcube-snapshots</url>
+		</repository>
+
+		<repository>
+			<id>gcube-externals</id>
+			<name>gCube Externals</name>
+			<url>http://maven.research-infrastructures.eu/nexus/content/repositories/gcube-externals</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>			
+	</repositories>
+
+	<dependencyManagement> 
+		<dependencies>			
+			<dependency>
+			  <groupId>org.gcube.distribution</groupId>
+			  <artifactId>maven-portal-bom</artifactId>
+			  <version>1.0.0-SNAPSHOT</version>
+			  <scope>import</scope>
+			  <type>pom</type>
+				<exclusions>
+					<!-- excluded the version of aslcore defined in the bom because it has a bug-->
+					<exclusion>
+						<groupId>org.gcube.applicationsupportlayer</groupId>
+						<artifactId>aslcore</artifactId>					
+					</exclusion>
+				</exclusions>			  
+			</dependency>
+		</dependencies>		 	
+	</dependencyManagement>	
+	
+
+	<dependencies>
+		<!-- GWT libraries -->
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+		</dependency>
+			
+		
+		<!-- sencha gxt (gwt framework with widgets) -->
+		<dependency>
+			<groupId>com.sencha.gxt</groupId>
+			<artifactId>gxt</artifactId>
+		</dependency>
+
+		
+		<!--gCube Dependencies -->	 
+		<dependency>
+			<groupId>org.gcube.portlets.user</groupId>
+			<artifactId>workspace-light-tree</artifactId>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.gcube.portal</groupId>
+			<artifactId>custom-portal-handler</artifactId>
+		</dependency>				
+		<dependency>
+			<groupId>org.gcube.applicationsupportlayer</groupId>
+			<artifactId>aslcore</artifactId>
+			<version>3.2.3-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>			
+				
+		 
+		<!-- The Java Portlet API -->
+		<dependency>
+			<groupId>javax.portlet</groupId>
+			<artifactId>portlet-api</artifactId>
+		</dependency>				 
+		
+				
+		<!-- Project with the stubs to create a client for the xmap web service -->
+		<dependency>
+			<groupId>org.openbio.xmap</groupId>
+			<artifactId>ServiceInterfaces</artifactId>
+			<version>1.1.1-SNAPSHOT</version>
+		</dependency>
+											
+		<!--  Other dependencies -->
+		<dependency>
+			<groupId>org.jvnet.jaxb2_commons</groupId>
+			<artifactId>jaxb2-basics-runtime</artifactId>
+			<version>0.6.3</version>
+		</dependency>	
+				
+		<dependency>
+		  <groupId>junit</groupId>
+		  <artifactId>junit</artifactId>
+		  <version>4.10</version>
+		  <scope>test</scope>
+		</dependency>		
+	</dependencies>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<!-- Generate compiled stuff in the folder used for developing mode -->
+		<outputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</outputDirectory>
+		
+		<plugins>
+			<!-- GWT Maven Plugin -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>${gwtMaven}</version>
+				<!-- JS is only needed in the package phase, this speeds up testing -->
+				<executions>
+					<execution>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+				<!-- Plugin configuration. There are many available options, see gwt-maven-plugin 
+					documentation at codehaus.org -->
+				<configuration>
+					<!-- URL that should be automatically opened in the GWT shell (gwt:run). -->
+					<runTarget>CrossMappingPortlet.html</runTarget>
+					<!-- Location of the develop-mode web application structure (gwt:run). -->
+					<hostedWebapp>${project.build.directory}/${project.build.finalName}</hostedWebapp>
+					<!-- Ask GWT to create the Story of Your Compile (SOYC) (gwt:compile) -->
+					<compileReport>true</compileReport>
+				</configuration>
+			</plugin>
+
+			<!-- Add source folders to test classpath in order to run gwt-tests as 
+				normal junit-tests -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.12.2</version>
+				<configuration>
+					<additionalClasspathElements>
+						<additionalClasspathElement>${project.build.sourceDirectory}</additionalClasspathElement>
+						<additionalClasspathElement>${project.build.testSourceDirectory}</additionalClasspathElement>
+					</additionalClasspathElements>
+					<useManifestOnlyJar>false</useManifestOnlyJar>
+					<forkMode>always</forkMode>
+
+					<!-- Folder for generated testing stuff -->
+					<systemProperties>
+						<property>
+							<name>gwt.args</name>
+							<value>-out target/www</value>
+						</property>
+					</systemProperties>
+				</configuration>
+			</plugin>
+
+			<!-- Copy static web files before executing gwt:run -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/${project.build.finalName}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/webapp</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Configure eclipse when importing the project as a maven project -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>2.9</version>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>false</downloadJavadocs>
+					
+					<warSourceDirectory>src/main/webapp</warSourceDirectory>
+					<buildOutputDirectory>${project.build.directory}/${project.build.finalName}/WEB-INF/classes</buildOutputDirectory>
+					
+					<projectnatures>
+					   <projectnature>org.eclipse.jdt.core.javanature</projectnature>
+					   <projectnature>com.google.gdt.eclipse.core.webAppNature</projectnature>
+					   <nature>com.google.gwt.eclipse.core.gwtNature</nature>
+					</projectnatures>						
+					
+					<buildcommands>
+					   <buildcommand>org.eclipse.jdt.core.javabuilder</buildcommand>
+					   <buildcommand>com.google.gdt.eclipse.core.webAppProjectValidator</buildcommand>
+					   <buildcommand>com.google.appengine.eclipse.core.projectValidator</buildcommand>
+					   <buildcommand>com.google.gwt.eclipse.core.gwtProjectValidator</buildcommand>
+					</buildcommands>					
+					
+					<classpathContainers>
+					   <classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
+					   <classpathContainer>com.google.gwt.eclipse.core.GWT_CONTAINER</classpathContainer>
+					</classpathContainers>		
+
+				  <excludes>
+					 <exclude>com.google.gwt:gwt-servlet</exclude>
+					 <exclude>com.google.gwt:gwt-user</exclude>
+					 <exclude>com.google.gwt:gwt-dev</exclude>
+					 <exclude>javax.validation:validation-api</exclude>
+				  </excludes>			
+
+					<additionalConfig>
+                        <file>
+                           <name>.settings/org.eclipse.core.resources.prefs</name>
+                           <content><![CDATA[
+eclipse.preferences.version=1
+encoding/<project>=${project.build.sourceEncoding}
+                           ]]></content>
+                       </file>
+                    </additionalConfig>
+				  
+				</configuration>
+			</plugin>
+			
+
+			<!-- Delete gwt generated stuff -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>2.5</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>src/main/webapp/crossmappingportlet</directory>
+						</fileset>
+						<fileset>
+							<directory>src/main/webapp/WEB-INF/classes</directory>
+						</fileset>
+						<fileset>
+							<directory>src/main/webapp/WEB-INF/lib</directory>
+						</fileset>
+						<fileset>
+							<directory>tomcat</directory>
+						</fileset>
+						<fileset>
+							<directory>www-test</directory>
+						</fileset>
+						<fileset>
+							<directory>.gwt-tmp</directory>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+
+
+			<plugin>
+				<groupId>com.liferay.maven.plugins</groupId>
+				<artifactId>liferay-maven-plugin</artifactId>
+				<version>${liferay.version}</version>
+				<configuration>
+					<autoDeployDir>${liferay.auto.deploy.dir}</autoDeployDir>
+					<liferayVersion>${liferay.version}</liferayVersion>
+					<pluginType>portlet</pluginType>
+				</configuration>
+			</plugin>			
+		</plugins>
+		
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.codehaus.mojo</groupId>
+										<artifactId>license-maven-plugin</artifactId>
+										<versionRange>[1.0,)</versionRange>
+										<goals>
+											<goal>update-file-header</goal>
+											<goal>update-project-license</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+	
+  <profiles>
+	<!--Profile to run project from command line like mvn gwt:run -Denvironment=local_gCore -DgCubeCore.localPath=C:/Projects/OpenBio/gCube/portal-bundle/gCore/ -->
+    <profile>
+      <id>development</id>
+      <activation>
+        <property>
+          <name>environment</name>
+          <value>local_gCore</value>
+        </property>
+      </activation>
+      <build>
+        <resources>
+          <resource>
+            <directory>${gCubeCore.localPath}</directory>
+            <includes>
+              <include>symm.key</include>
+            </includes>
+          </resource>
+        </resources>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>gwt-maven-plugin</artifactId>
+            <version>2.4.0</version>
+            <configuration>
+              <extraJvmArgs>-DGLOBUS_LOCATION=${gCubeCore.localPath}</extraJvmArgs>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>	
+
+
+</project>
+
+

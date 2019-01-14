@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  #%L
+  OpenBio Xmap Parent
+  %%
+  Copyright (C) 2012 - 2013 Cardiff University
+  %%
+  Use of this software is governed by the attached licence file. If no licence 
+  file is present the software must not be used.
+  
+  The use of this software, including reverse engineering, for any other purpose 
+  is prohibited without the express written permission of the software owner, 
+  Cardiff University.
+  #L%
+  -->
+
+
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <properties>
+    <title>About XMap in OpenBio</title>
+    <author email="F.Quevedo.Fernandez@cs.cardiff.ac.uk">Francisco Quevedo</author>   
+  </properties>
+  <body>
+	<section name="XMap in OpenBIo">
+		<p>
+			Content:
+		</p>
+		<ul>
+			<li><a href="#Overview">Overview</a></li>
+			<li><a href="#Scoping_the_use_case">Scoping the use case</a></li>
+		</ul>
+
+		<subsection name="Overview">  
+			<p>
+			Taxonomic information is essential for reliable environmental science and for monitoring changes in biodiversity. Adequate access to taxonomic information, especially the capacity to explore and use taxonomic information on the Internet, is still scarce - both in terms of availability (lacking completeness) and connectedness (lacking effective integration). Advancing taxonomic work routines to support electronic use of biodiversity information is urgent for a proper management of the global problems related to environmental change, nature conservation and the sustainable use of biological resources. In Europe several initiatives started during the last decade focused on the development of information systems to integrate biological species information are supporting technological advancements in taxonomy. The [http://www.catalogueoflife.org Species2000/ITIS Catalogue of Life] continued as [http://www.4d4life.eu 4D4Life] and [http://www.i4life.eu i4Life] projects, [http://www.cybertaxonomy.org The Cybertaxonomy Platform, the European Taxonomic Backbone (continued as [http://www.eu-nomen.eu PESI]) and the Taxonomic Scratchpads (continued as [http://vbrant.eu ViBRANT]) have all been developed as follow-up of the European Network of Excellence on Taxonomy - [http://www.e-taxonomy.eu EDIT].
+			</p>
+			<p>
+			The investments and EC support to the development of integrative platforms and virtual research environments are contributing to the consolidation of Europe as the world leader in the construction of taxonomically authoritative species registers that assure taxonomic information integrity and integration within life sciences information systems.
+			</p>
+			<p>
+			The Brazilian National Research Council (CNPq) launched in 2010 a series of programs in areas focused on addressing the taxonomic impediment or related to the use of taxonomic information. The planned investment of more than 100 million euros in the next 3 years in programs related to biodiversity will support major developments in this area. These include the programs PROTAX (capacity building in taxonomy), REFLORA (long term large scale program for the repatriation of biodiversity information from natural history collections), BR-Bol (Program for the Molecular Identification of Biodiversity using DNA bar coding) and other activities related the PPBIO implementation (National Biodiversity Research Program).
+			</p>
+			<p>
+			In 2011 the Brazilian Ministry of Science and Technology will start the implementation of the 5 year full sized Global Environment Facility project "Improving Brazilian Capacity to Conserve and Use Biodiversity through Information Management and Use - SIBBr" The GEF project's objective is to ensure data-driven policy design and implementation by facilitating and mainstreaming biodiversity information into decision-making and policy development processes. This will be achieved by: (i) consolidating the infrastructure, instruments, tools, and technology required to qualify, gather and make the biodiversity information contained in the resources of the country's biological collections freely available online through the Brazilian Biodiversity Information System (SIBBr); (ii) strengthening institutional and taxonomic capacities to ensure continuous uploading and updating of information into SIBBr; and (iii) development of products and services that will allow key decision-makers to establish policies that integrate biodiversity conservation and sustainable use objectives into the operations of the productive sectors. The investment associated with the project to consolidate the SIBBr is 28 Million USD.
+			</p>
+			<p>
+			Large technological and organisational efforts are currently on going to merge, integrate, curate and manage these databases at a larger scale. The Species 2000 Catalogue of Life (CoL) is the most well-established scientific data infrastructure widely used around the world as a taxonomic framework and with already existing partnerships, particularly with the "Megadiverse" countries such as China, Australia and Brazil. The very first of these linkages was with CRIA -Brazil (2000-2003), and this partnership, including a Brazilian Director of Species 2000, and membership of 4D4Life, has been a bedrock for other partnerships. CRIA uses the CoL for data-cleaning in its speciesLink Network, and participates by serving Brazilian taxonomic data sets as one of the new Hubs in the 4D4Life Multi-Hub Network.
+			</p>
+		</subsection>
+		
+		<subsection name="Scoping the use case">
+			<p>
+				This use case on integration between regional and global taxonomies is a pilot study to cross-map and analyse all or part of the regional plant catalogue of the Brazilian Hub served by CRIA (up to 10,000 species of flowering plants) with the global index of plants within the CoL and provided by Species 2000 (with up to 150,000 species of plants). 
+			</p>
+			<p>
+This use case, as depicted in the story below, describes a scenario for cross-mapping and analysing all or part of the Flora of Brasil against the relevant part of the current edition of the CoL, and for selecting taxa present in the Flora of Brasil that are 'missing' from the CoL, and for 'piping' those to the appropriate global species database(s).
+				<ul>
+					<li> A user wishes to compare (cross-map) a checklist of taxa (Checklist A) extracted from the Flora of Brasil catalogue with a checklist of taxa (Checklist B) extracted from the currently published edition of the Species 2000 / ITIS Catalogue of Life.</li>
+					<li> The user wishes to explore and analyse disparities between taxa in Checklist A and taxa in Checklist B, identifying taxa that are absent from Checklist B. This analysis takes into account that: i) a taxon that occurs in Checklist A may be known by a different name in Checklist B; ii) that it may be a subset of a taxon that appears in Checklist B (or vice versa); or iii) that it only partially overlaps with a taxon that appears in Checklist B (or vice versa). </li>
+					<li> The user sends a list of those taxa 'missing' from Checklist B to the Species 2000 Secretariat. The Species 2000 Secretariat forwards the 'missing taxa' information to relevant experts for consideration as additions to be made to the appropriate Global Species Databases (GSD) making up the Catalogue of Life. </li>
+					<li> The relevant experts are able to scrutinise the missing taxa information, making decisions about inclusion or rejection of specific taxon information into the GSD for which they are responsible. They can annotate the information provided to them as feedback to the user. The user is able to check on the progress of these considerations and to review the feedback. </li>
+				</ul>			
+			</p>				
+			<p>
+				The use case comprises two workflows, each consisting of a number of discrete steps. The first workflow is a generic workflow for selecting two taxonomic checklists to be compared. The second workflow, which follows sequentially from the first, is a more specific workflow suited for piping information about taxa selected from a cross-map to the appropriate database provider. The second workflow relies strongly on elements of human interactions between the various actors and the workflow itself.
+			</p>
+		</subsection>
+
+    </section>
+  </body>
+</document>

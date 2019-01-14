@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  OpenBio Xmap Parent
+  %%
+  Copyright (C) 2012 - 2013 Cardiff University
+  %%
+  Use of this software is governed by the attached licence file. If no licence 
+  file is present the software must not be used.
+  
+  The use of this software, including reverse engineering, for any other purpose 
+  is prohibited without the express written permission of the software owner, 
+  Cardiff University.
+  #L%
+  -->
+
+
+
+<faqs xmlns="http://maven.apache.org/FML/1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/FML/1.0 http://maven.apache.org/xsd/fml-1.0.xsd" id="FAQ" title="Frequently Asked Questions">
+  <part id="General">
+    <title>General</title>
+    <faq id="What is the XMap">
+      <question>What is the XMap?</question>
+      <answer>
+        <p>
+		The �cross-map� is a software application that will enable the relationships between lists of species and other taxa in one species information system to be related to those in another species information system. This is a fundamental element of making it possible to perform data aggregation and complex analyses which require the use of data from multiple, diverse species information systems.		
+		</p>
+      </answer>
+    </faq>
+  </part>
+  <part id="User stories">
+    <title>What are the user stories?</title>
+    <faq id="Using a cross-map">
+      <question>Using a cross-map?</question>
+      <answer>
+        <p>
+        In this section we describe a number of contexts in which a task is to be performed which a cross-map can support. In the following section we shall explain the various ways of interacting with a cross-map which these user stories imply are needed. The suggested user stories are as follows:
+        </p>
+        <ul>
+          <li>A user wishes to perform an analysis which involves using information from a number of species information systems. It is desired, starting from one or more scientific names, to retrieve the relevant information from these systems. The user�s scientific name is associated with some specific taxonomy (either the Catalogue of Life or one of the global partners� � e.g. the NCBI taxonomy). He or she is using an analytic tool which is able to retrieve and process information from the various systems in a suitable manner, but which uses the cross-map in order to assist, seamlessly, in overcoming the semantic heterogeneity which the differing underlying taxonomies present.</li>
+          <li>A user accustomed to working with a given taxonomy knows which scientific name is used for a species of current interest to him or her, and wishes to discover which names would be used in other systems. She or he uses a Web-based system which allows submission of such names, returning the corresponding name(s) in the target system.</li>
+          <li>An extension of the above user stories is that, because the user wishes his or her work to be reproducible, it is necessary to make use of a specific cross-map edition (the cross-map being subject to change in later editions).</li>
+		  <li>Similar stories might apply to common names. </li>
+        </ul>
+      </answer>
+    </faq>   
+  </part>
+</faqs>

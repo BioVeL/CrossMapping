@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<composite name="CrossMapping" targetNamespace="http://xmap.openbio.org/2012/05/CrossMapping"
+	xmlns="http://docs.oasis-open.org/ns/opencsa/sca/200912" xmlns:t="http://tuscany.apache.org/xmlns/sca/1.1">
+        
+	<component name="XMap">
+		<implementation.java class="org.openbio.xmap.application.crossmapping.services.XMapImplSCA"/>
+    	<service name="XMapService">	
+			<interface.java interface="org.openbio.xmap.common.serviceinterfaces.services.xmap.XMapService"/>
+            <binding.ws name="xmapWS" uri="http://localhost:8085/CrossMapping/XMapService" requires="t:MTOM"/>                                   
+    	</service>   
+
+		<property name='xmapJndiDs'>jdbc/XMapDB</property>
+		<property name='exportFolder'>http://localhost:8085/CrossMapping/xMapResults</property>
+		<property name='uploadFolder'>http://localhost:8085/CrossMapping/uploadChecklists</property>			
+	</component>
+			
+</composite>

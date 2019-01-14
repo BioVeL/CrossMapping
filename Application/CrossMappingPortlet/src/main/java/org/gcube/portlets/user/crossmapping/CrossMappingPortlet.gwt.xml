@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  #%L
+  XMap GUI CrossMapping Portlet
+  %%
+  Copyright (C) 2012 - 2013 Cardiff University
+  %%
+  Use of this software is governed by the attached licence file. If no licence 
+  file is present the software must not be used.
+  
+  The use of this software, including reverse engineering, for any other purpose 
+  is prohibited without the express written permission of the software owners, 
+  Cardiff University and Italy National Research Council.
+  #L%
+  -->
+
+<module rename-to='crossmappingportlet'>
+  <!-- Inherit the core Web Toolkit stuff.                        -->
+  <inherits name='com.google.gwt.user.User'/>
+
+  <!-- <inherits name='com.google.gwt.user.theme.clean.Clean'/>-->
+
+  <!-- Other module inherits                                      -->
+  <inherits name='com.sencha.gxt.ui.GXT'/>   
+  <inherits name='org.gcube.portlets.user.workspace.lighttree.WorkspacePortletLightTree'/> 
+
+
+	<!-- Logging -->
+  <inherits name="com.google.gwt.logging.Logging"/>  
+  <set-property name="gwt.logging.enabled" value="TRUE"/>
+  <set-property name="gwt.logging.logLevel" value="FINE"/>
+  <set-property name="gwt.logging.consoleHandler" value="DISABLED" />
+  <set-property name="gwt.logging.developmentModeHandler" value="DISABLED"/> 
+  <set-property name="gwt.logging.firebugHandler" value="DISABLED" />
+  <set-property name="gwt.logging.popupHandler" value="DISABLED" />
+  <set-property name="gwt.logging.systemHandler" value="DISABLED" />
+  <set-property name="gwt.logging.simpleRemoteHandler" value="ENABLED" />
+
+
+  <!-- Specify the app entry point class.                         -->
+  <entry-point class='org.gcube.portlets.user.crossmapping.client.CrossMappingPortlet'/>
+
+  <!-- Specify the paths for translatable code                    -->
+  <source path='client'/>
+  <source path='shared'/>
+
+</module>

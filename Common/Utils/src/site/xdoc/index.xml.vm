@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  #%L
+  E2 Utils
+  %%
+  Copyright (C) 2010 - 2012 Cardiff University
+  %%
+  Use of this software is governed by the attached licence file. If no licence 
+  file is present the software must not be used.
+  
+  The use of this software, including reverse engineering, for any other purpose 
+  is prohibited without the express written permission of the software owner, 
+  Cardiff University.
+  #L%
+  -->
+
+
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
+  <properties>
+    <title>About ${project.build.finalName}</title>
+    <author email="F.Quevedo.Fernandez@cs.cardiff.ac.uk">Francisco Quevedo</author>   
+  </properties>
+  <body>
+		
+	<section name="${project.build.finalName}">	
+
+		<subsection name="Description">  
+			<p>
+				Project with classes that define and handle Tasks 
+			</p>
+		</subsection>	
+							
+	</section>
+
+  </body>
+</document>

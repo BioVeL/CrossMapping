@@ -1,0 +1,24 @@
+OpenBio Crossmapping Software Licence
+-----------------------------------------
+This software is licensed solely for deployment on development servers at 
+Cardiff University, University of Reading and ETI Bioinformatics (Amsterdam) 
+for the purpose of testing by Species2000, Cardiff University, University of 
+Reading and ETI Bioinformatics (Amsterdam) in connection with the unified 
+production process for the assembly of the Species2000/ITIS Catalogue of Life. 
+
+The use of this software, including reverse engineering, for any other purpose 
+is prohibited without the express written permission of the software owner, 
+Cardiff University.
+
+Contact: 
+Cardiff School of Computer Science and Informatics, 
+Cardiff University, 
+Queens Buildings, 
+5 The Parade, 
+Cardiff CF24 3AA, 
+United Kingdom 
+
+telephone: +44 28 2087 4812 
+email: office@cs.cardiff.ac.uk 
+
+Copyright (C) 2010 - 2011 Cardiff University 

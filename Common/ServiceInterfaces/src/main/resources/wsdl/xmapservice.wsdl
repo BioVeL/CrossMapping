@@ -1,0 +1,798 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+  #%L
+  XMap Service Interfaces
+  %%
+  Copyright (C) 2012 - 2013 Cardiff University
+  %%
+  Use of this software is governed by the attached licence file. If no licence 
+  file is present the software must not be used.
+  
+  The use of this software, including reverse engineering, for any other purpose 
+  is prohibited without the express written permission of the software owner, 
+  Cardiff University.
+  #L%
+  -->
+
+
+<wsdl:definitions targetNamespace="http://xmap.openbio.org/common/serviceinterfaces/services/xmap" 
+	xmlns:xmap="http://xmap.openbio.org/common/serviceinterfaces/services/xmap"	
+	xmlns:xmapType="http://xmap.openbio.org/common/serviceinterfaces/types/xmap"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"	 	
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+   	xmlns:xmime="http://www.w3.org/2005/05/xmlmime">
+
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://xmap.openbio.org/common/serviceinterfaces/services/xmap"
+			xmlns:xmap="http://xmap.openbio.org/common/serviceinterfaces/services/xmap"			
+			xmlns:xmapType="http://xmap.openbio.org/common/serviceinterfaces/types/xmap"		
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+			elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+			<!-- The xsd"s files have to be inside the wsdl directory because if not the SCA Domain can"t find them-->
+			<xsd:import schemaLocation="xsd/xmap.xsd" namespace="http://xmap.openbio.org/common/serviceinterfaces/types/xmap"/>			
+				
+			<xsd:element name="xMapServiceFault">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="idException" type="xsd:string"/>
+						<xsd:element name="userData" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>	
+			</xsd:element>				
+			
+		</xsd:schema>
+	</wsdl:types>
+
+	
+	<wsdl:message name="uploadChecklistFileRequestMessage">
+		<wsdl:part element="xmapType:uploadChecklistFile" name="parameters"/>	  
+	</wsdl:message>
+	<wsdl:message name="uploadChecklistFileResponseMessage">
+		<wsdl:part element="xmapType:uploadChecklistFileResponse" name="parameters"/>	  
+	</wsdl:message>
+	
+	<wsdl:message name="getChecklistFilesUploadedRequestMessage">
+		<wsdl:part element="xmapType:getChecklistFilesUploaded" name="parameters"/>	  
+	</wsdl:message>
+	<wsdl:message name="getChecklistFilesUploadedResponseMessage">
+		<wsdl:part element="xmapType:getChecklistFilesUploadedResponse" name="parameters"/>	  
+	</wsdl:message>	
+	
+	<wsdl:message name="deleteChecklistFileUploadedRequestMessage">
+		<wsdl:part element="xmapType:deleteChecklistFileUploaded" name="parameters"/>	  
+	</wsdl:message>
+	<wsdl:message name="deleteChecklistFileUploadedResponseMessage">
+		<wsdl:part element="xmapType:deleteChecklistFileUploadedResponse" name="parameters"/>	  
+	</wsdl:message>			
+	
+	<wsdl:message name="importChecklistRequestMessage">
+		<wsdl:part element="xmapType:importChecklist" name="parameters"/>	  
+	</wsdl:message>
+	<wsdl:message name="importChecklistResponseMessage">
+		<wsdl:part element="xmapType:importChecklistResponse" name="parameters"/>	  
+	</wsdl:message>	
+
+	<wsdl:message name="getChecklistsImportedRequestMessage">
+		<wsdl:part element="xmapType:getChecklistsImported" name="parameters"/>	  
+	</wsdl:message>
+	<wsdl:message name="getChecklistsImportedResponseMessage">
+		<wsdl:part element="xmapType:getChecklistsImportedResponse" name="parameters"/>	  
+	</wsdl:message>					
+		
+	<wsdl:message name="deleteChecklistImportedRequestMessage">
+		<wsdl:part element="xmapType:deleteChecklistImported" name="parameters"/>	  
+	</wsdl:message>
+	<wsdl:message name="deleteChecklistImportedResponseMessage">
+		<wsdl:part element="xmapType:deleteChecklistImportedResponse" name="parameters"/>	  
+	</wsdl:message>				
+		
+	<wsdl:message name="runXmapRequestMessage">
+		<wsdl:part element="xmapType:runXmap" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="runXmapResponseMessage">
+		<wsdl:part element="xmapType:runXmapResponse" name="parameters"/>
+	</wsdl:message>
+	
+	<wsdl:message name="reRunXmapRequestMessage">
+		<wsdl:part element="xmapType:reRunXmap" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="reRunXmapResponseMessage">
+		<wsdl:part element="xmapType:reRunXmapResponse" name="parameters"/>
+	</wsdl:message>	
+	
+	
+	<wsdl:message name="getCrossMapsRequestMessage">
+		<wsdl:part element="xmapType:getCrossMaps" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="getCrossMapsResponseMessage">
+		<wsdl:part element="xmapType:getCrossMapsResponse" name="parameters"/>
+	</wsdl:message>	
+		
+	<wsdl:message name="deleteCrossMapRequestMessage">
+		<wsdl:part element="xmapType:deleteCrossMap" name="parameters"/>	  
+	</wsdl:message>
+	<wsdl:message name="deleteCrossMapResponseMessage">
+		<wsdl:part element="xmapType:deleteCrossMapResponse" name="parameters"/>	  
+	</wsdl:message>				
+		
+	<wsdl:message name="exportResultXmapRequestMessage">
+		<wsdl:part element="xmapType:exportResultXmap" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="exportResultXmapResponseMessage">
+		<wsdl:part element="xmapType:exportResultXmapResponse" name="parameters"/>
+	</wsdl:message>
+	
+	<wsdl:message name="getCrossMapResultsExportedRequestMessage">
+		<wsdl:part element="xmapType:getCrossMapResultsExported" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="getCrossMapResultsExportedResponseMessage">
+		<wsdl:part element="xmapType:getCrossMapResultsExportedResponse" name="parameters"/>
+	</wsdl:message>
+	
+	<wsdl:message name="deleteCrossMapResultsExportedRequestMessage">
+		<wsdl:part element="xmapType:deleteCrossMapResultsExported" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="deleteCrossMapResultsExportedResponseMessage">
+		<wsdl:part element="xmapType:deleteCrossMapResultsExportedResponse" name="parameters"/>
+	</wsdl:message>		
+	
+	
+	<wsdl:message name="getEntriesInChecklistRequestMessage">
+		<wsdl:part element="xmapType:getEntriesInChecklist" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="getEntriesInChecklistResponseMessage">
+		<wsdl:part element="xmapType:getEntriesInChecklistResponse" name="parameters"/>
+	</wsdl:message>			
+	
+	<wsdl:message name="getEntriesInXMapRequestMessage">
+		<wsdl:part element="xmapType:getEntriesInXMap" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="getEntriesInXMapResponseMessage">
+		<wsdl:part element="xmapType:getEntriesInXMapResponse" name="parameters"/>
+	</wsdl:message>			
+	
+	<wsdl:message name="getTaxonomicRanksRequestMessage">
+		<wsdl:part element="xmapType:getTaxonomicRanks" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="getTaxonomicRanksResponseMessage">
+		<wsdl:part element="xmapType:getTaxonomicRanksResponse" name="parameters"/>
+	</wsdl:message>			
+		
+	<wsdl:message name="getTaxonDetailRequestMessage">
+		<wsdl:part element="xmapType:getTaxonDetail" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="getTaxonDetailResponseMessage">
+		<wsdl:part element="xmapType:getTaxonDetailResponse" name="parameters"/>
+	</wsdl:message>		
+	
+	<wsdl:message name="getXMapRelationshipDetailRequestMessage">
+		<wsdl:part element="xmapType:getXMapRelationshipDetail" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="getXMapRelationshipDetailResponseMessage">
+		<wsdl:part element="xmapType:getXMapRelationshipDetailResponse" name="parameters"/>
+	</wsdl:message>		
+	
+		
+	<wsdl:message name="getTaxonChildrenRequestMessage">
+		<wsdl:part element="xmapType:getTaxonChildren" name="parameters"/>	  
+	</wsdl:message>
+	<wsdl:message name="getTaxonChildrenResponseMessage">
+		<wsdl:part element="xmapType:getTaxonChildrenResponse" name="parameters"/>	  
+	</wsdl:message>	
+	
+	<wsdl:message name="getTaxonChildrenPlusRelationshipsRequestMessage">
+		<wsdl:part element="xmapType:getTaxonChildrenPlusRelationships" name="parameters"/>	  
+	</wsdl:message>
+	<wsdl:message name="getTaxonChildrenPlusRelationshipsResponseMessage">
+		<wsdl:part element="xmapType:getTaxonChildrenPlusRelationshipsResponse" name="parameters"/>	  
+	</wsdl:message>	
+	
+
+	<wsdl:message name="getEntriesInUserKnowledgeRequestMessage">
+		<wsdl:part element="xmapType:getEntriesInUserKnowledge" name="parameters"/>	  
+	</wsdl:message>
+	<wsdl:message name="getEntriesInUserKnowledgeResponseMessage">
+		<wsdl:part element="xmapType:getEntriesInUserKnowledgeResponse" name="parameters"/>	  
+	</wsdl:message>		
+	
+	<wsdl:message name="addUserKnowledgeRequestMessage">
+		<wsdl:part element="xmapType:addUserKnowledge" name="parameters"/>	  
+	</wsdl:message>
+	<wsdl:message name="addUserKnowledgeResponseMessage">
+		<wsdl:part element="xmapType:addUserKnowledgeResponse" name="parameters"/>	  
+	</wsdl:message>	
+				
+	<wsdl:message name="deleteUserKnowledgeRequestMessage">
+		<wsdl:part element="xmapType:deleteUserKnowledge" name="parameters"/>	  
+	</wsdl:message>
+	<wsdl:message name="deleteUserKnowledgeResponseMessage">
+		<wsdl:part element="xmapType:deleteUserKnowledgeResponse" name="parameters"/>	  
+	</wsdl:message>						
+
+
+	<wsdl:message name="getTaskProgressRequestMessage">
+		<wsdl:part element="xmapType:getTaskProgress" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="getTaskProgressResponseMessage">
+		<wsdl:part element="xmapType:getTaskProgressResponse" name="parameters"/>
+	</wsdl:message>	
+	
+	<wsdl:message name="getActiveTasksRequestMessage">
+		<wsdl:part element="xmapType:getActiveTasks" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="getActiveTasksResponseMessage">
+		<wsdl:part element="xmapType:getActiveTasksResponse" name="parameters"/>
+	</wsdl:message>	
+	
+	<wsdl:message name="cancelTaskRequestMessage">
+		<wsdl:part element="xmapType:cancelTask" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="cancelTaskResponseMessage">
+		<wsdl:part element="xmapType:cancelTaskResponse" name="parameters"/>
+	</wsdl:message>			
+	
+	<wsdl:message name="XMapServiceFault">
+		<wsdl:part element="xmap:xMapServiceFault" name="parameters" />
+	</wsdl:message>		
+	
+	
+	<wsdl:portType name="XMapService">	  
+		<wsdl:operation name="uploadChecklistFile" wsaw:Action="attachment">
+			<wsdl:documentation>Upload a checklist file to the server</wsdl:documentation>
+			<wsdl:input message="xmap:uploadChecklistFileRequestMessage"/>
+			<wsdl:output message="xmap:uploadChecklistFileResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>	  	  
+
+		<wsdl:operation name="getChecklistFilesUploaded" wsaw:Action="attachment">
+			<wsdl:documentation>Get list of uploaded checklist files</wsdl:documentation>
+			<wsdl:input message="xmap:getChecklistFilesUploadedRequestMessage"/>
+			<wsdl:output message="xmap:getChecklistFilesUploadedResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>	
+		
+		<wsdl:operation name="deleteChecklistFileUploaded">
+			<wsdl:documentation>Delete file of uploaded checklist</wsdl:documentation>
+			<wsdl:input message="xmap:deleteChecklistFileUploadedRequestMessage"/>
+			<wsdl:output message="xmap:deleteChecklistFileUploadedResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>			
+		
+		<wsdl:operation name="importChecklist">
+			<wsdl:documentation>The import process will start at a separate thread in which the contect of the dwca already upload into the server will be imported into the database. Please once it starts, call checkTaskProgress to check the status of the task</wsdl:documentation>
+			<wsdl:input message="xmap:importChecklistRequestMessage"/>
+			<wsdl:output message="xmap:importChecklistResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>
+
+		<wsdl:operation name="getChecklistsImported">
+			<wsdl:documentation>Get list of imported checklist. If the field status is sent, the method will return only the imported checklists of user that are this status, 
+				if not it will return all imported checklists of the user.
+			</wsdl:documentation>
+			<wsdl:input message="xmap:getChecklistsImportedRequestMessage"/>
+			<wsdl:output message="xmap:getChecklistsImportedResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>
+		
+		<wsdl:operation name="deleteChecklistImported">
+			<wsdl:documentation>Delete imported checklist that is completed or failed</wsdl:documentation>
+			<wsdl:input message="xmap:deleteChecklistImportedRequestMessage"/>
+			<wsdl:output message="xmap:deleteChecklistImportedResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>		
+
+		<wsdl:operation name="runXmap">
+			<wsdl:documentation>Method for cross-mapping two checklists, if it starts ok, please call &lt;checkXmapStatus &gt; to check the status</wsdl:documentation>
+			<wsdl:input message="xmap:runXmapRequestMessage"/>
+			<wsdl:output message="xmap:runXmapResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>
+		
+		<wsdl:operation name="reRunXmap">
+			<wsdl:documentation>Method to re-run an existing cross-map perhaps changing its parameters. Also indicating if want to overwrite the previous one</wsdl:documentation>
+			<wsdl:input message="xmap:reRunXmapRequestMessage"/>
+			<wsdl:output message="xmap:reRunXmapResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>
+			
+		<wsdl:operation name="getCrossMaps">
+			<wsdl:documentation>Get list of xmaps. If the field status is sent, the method will return only the user's crossmaps that are this status, 
+				if not it will return all the user's crossmaps</wsdl:documentation>
+			<wsdl:input message="xmap:getCrossMapsRequestMessage"/>
+			<wsdl:output message="xmap:getCrossMapsResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>	
+		
+		<wsdl:operation name="deleteCrossMap">
+			<wsdl:documentation>Delete crossmap that is completed or failed</wsdl:documentation>
+			<wsdl:input message="xmap:deleteCrossMapRequestMessage"/>
+			<wsdl:output message="xmap:deleteCrossMapResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>			
+
+		<wsdl:operation name="exportResultXmap">
+			<wsdl:documentation>Export the results of a xMap into a zip file</wsdl:documentation>
+			<wsdl:input message="xmap:exportResultXmapRequestMessage"/>
+			<wsdl:output message="xmap:exportResultXmapResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>
+		
+		<wsdl:operation name="getCrossMapResultsExported">
+			<wsdl:documentation>Get list of xmap results exported. If the field status is sent, the method will return only the xmap results exported of user that are this status, 
+				if not it will return all xmap results exported of the user</wsdl:documentation>
+			<wsdl:input message="xmap:getCrossMapResultsExportedRequestMessage"/>
+			<wsdl:output message="xmap:getCrossMapResultsExportedResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>		
+
+		<wsdl:operation name="deleteCrossMapResultsExported">
+			<wsdl:documentation>Delete the file generated when export the result of the crossmap</wsdl:documentation>
+			<wsdl:input message="xmap:deleteCrossMapResultsExportedRequestMessage"/>
+			<wsdl:output message="xmap:deleteCrossMapResultsExportedResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>			
+		
+		
+		<wsdl:operation name="getEntriesInChecklist">
+			<wsdl:documentation>
+			Get records for the given checklist. 
+			Note 1: Range [start,end) 
+			Note 2: start begins in 0
+			</wsdl:documentation>
+			<wsdl:input message="xmap:getEntriesInChecklistRequestMessage"/>
+			<wsdl:output message="xmap:getEntriesInChecklistResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>	
+		
+		<wsdl:operation name="getEntriesInXMap">
+			<wsdl:documentation>
+				Get records for the given xmap 
+				Note 1: Range [start,end) 
+				Note 2: start begins in 0
+			</wsdl:documentation>
+			<wsdl:input message="xmap:getEntriesInXMapRequestMessage"/>
+			<wsdl:output message="xmap:getEntriesInXMapResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>			
+		
+		<wsdl:operation name="getTaxonomicRanks">
+			<wsdl:documentation>Get list of taxonomic ranks </wsdl:documentation>
+			<wsdl:input message="xmap:getTaxonomicRanksRequestMessage"/>
+			<wsdl:output message="xmap:getTaxonomicRanksResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>				
+
+		<wsdl:operation name="getTaxonDetail">
+			<wsdl:documentation>Get the details of the taxon received</wsdl:documentation>
+			<wsdl:input message="xmap:getTaxonDetailRequestMessage"/>
+			<wsdl:output message="xmap:getTaxonDetailResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>	
+
+		<wsdl:operation name="getXMapRelationshipDetail">
+			<wsdl:documentation>Get the details of the relationship in the xmap between the taxa received</wsdl:documentation>
+			<wsdl:input message="xmap:getXMapRelationshipDetailRequestMessage"/>
+			<wsdl:output message="xmap:getXMapRelationshipDetailResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>	
+
+		<wsdl:operation name="getTaxonChildren">
+			<wsdl:documentation>
+				Get children of the taxonId received.
+				Note: To obtain the children of the artificial root node pass taxonId wit null or -1
+			</wsdl:documentation>
+			<wsdl:input message="xmap:getTaxonChildrenRequestMessage"/>
+			<wsdl:output message="xmap:getTaxonChildrenResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>	
+		
+		<wsdl:operation name="getTaxonChildrenPlusRelationships">
+			<wsdl:documentation>
+				Get children of the taxonId received plus theirs relationships in the xmap
+				Note: To obtain the children of the artificial root node pass taxonId wit null or -1
+			</wsdl:documentation>
+			<wsdl:input message="xmap:getTaxonChildrenPlusRelationshipsRequestMessage"/>
+			<wsdl:output message="xmap:getTaxonChildrenPlusRelationshipsResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>
+
+		<wsdl:operation name="getEntriesInUserKnowledge">
+			<wsdl:documentation>Get entries in user knwoledge according to filter</wsdl:documentation>
+			<wsdl:input message="xmap:getEntriesInUserKnowledgeRequestMessage"/>
+			<wsdl:output message="xmap:getEntriesInUserKnowledgeResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>
+		
+		<wsdl:operation name="addUserKnowledge">
+			<wsdl:documentation>Add new user knwoledge</wsdl:documentation>
+			<wsdl:input message="xmap:addUserKnowledgeRequestMessage"/>
+			<wsdl:output message="xmap:addUserKnowledgeResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>
+		
+		<wsdl:operation name="deleteUserKnowledge">
+			<wsdl:documentation>Get entries in user knwoledge according to filter</wsdl:documentation>
+			<wsdl:input message="xmap:deleteUserKnowledgeRequestMessage"/>
+			<wsdl:output message="xmap:deleteUserKnowledgeResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>				
+
+
+		<wsdl:operation name="getTaskProgress">
+			<wsdl:documentation>Get task progress</wsdl:documentation>
+			<wsdl:input message="xmap:getTaskProgressRequestMessage"/>
+			<wsdl:output message="xmap:getTaskProgressResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>					
+
+		<wsdl:operation name="getActiveTasks">
+			<wsdl:documentation>Get list of active tasks</wsdl:documentation>
+			<wsdl:input message="xmap:getActiveTasksRequestMessage"/>
+			<wsdl:output message="xmap:getActiveTasksResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>
+			
+		<wsdl:operation name="cancelTask">
+			<wsdl:documentation>Cancel tasks</wsdl:documentation>
+			<wsdl:input message="xmap:cancelTaskRequestMessage"/>
+			<wsdl:output message="xmap:cancelTaskResponseMessage"/>
+			<wsdl:fault message="xmap:XMapServiceFault" name="XMapServiceFailure"/>
+		</wsdl:operation>		
+		
+	</wsdl:portType>
+
+
+	<wsdl:binding name="XMapServiceSoapBinding" type="xmap:XMapService">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+		            		
+		<wsdl:operation name="uploadChecklistFile">
+			<soap:operation soapAction="attachment" style="document"/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>
+		
+		<wsdl:operation name="getChecklistFilesUploaded">
+			<soap:operation soapAction="attachment" style="document"/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>
+		
+		<wsdl:operation name="deleteChecklistFileUploaded">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>					
+		
+		<wsdl:operation name="importChecklist">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>	
+		
+		<wsdl:operation name="getChecklistsImported">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>			
+		
+		<wsdl:operation name="deleteChecklistImported">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>				
+
+		<wsdl:operation name="runXmap">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>	
+		
+		<wsdl:operation name="reRunXmap">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>					
+
+		<wsdl:operation name="getCrossMaps">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>
+		
+		<wsdl:operation name="deleteCrossMap">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>				
+		
+		<wsdl:operation name="exportResultXmap">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>
+		
+		<wsdl:operation name="getCrossMapResultsExported">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>		
+
+		<wsdl:operation name="deleteCrossMapResultsExported">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>	
+		
+			
+		<wsdl:operation name="getEntriesInChecklist">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>			
+			
+		<wsdl:operation name="getEntriesInXMap">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>						
+				
+		<wsdl:operation name="getTaxonomicRanks">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>					
+														
+		<wsdl:operation name="getTaxonDetail">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>									
+
+		<wsdl:operation name="getXMapRelationshipDetail">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>									
+									
+		<wsdl:operation name="getTaxonChildren">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>	
+							
+		<wsdl:operation name="getTaxonChildrenPlusRelationships">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>	
+		
+		<wsdl:operation name="getEntriesInUserKnowledge">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>	
+		
+		<wsdl:operation name="addUserKnowledge">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>	
+		
+		<wsdl:operation name="deleteUserKnowledge">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>							
+		</wsdl:operation>			
+										
+				
+		<wsdl:operation name="getTaskProgress">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>	
+						
+		<wsdl:operation name="getActiveTasks">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>		
+
+		<wsdl:operation name="cancelTask">
+			<soap:operation soapAction=""/>		
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+			<wsdl:fault name="XMapServiceFailure">
+				<soap:fault name="XMapServiceFailure" use="literal"/>
+			</wsdl:fault>				
+		</wsdl:operation>		
+
+	</wsdl:binding>
+
+	<wsdl:service name="XMapServiceWS">			
+		<wsdl:port name="SOAP" binding="xmap:XMapServiceSoapBinding">
+			<soap:address location="http://localhost:8085/CrossMapping/XMapService"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
